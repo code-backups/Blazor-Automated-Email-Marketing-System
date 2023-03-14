@@ -11,15 +11,13 @@ A/B testing features are included in the software, allowing businesses to optimi
 
 The Automated Email Marketing System offers the following functionality:
 
-1.	Automation of .
-2.	Personalization options based on subscriber data 
-(such as name, location, or purchase history).
+1.	Automation.
+2.	Personalization.
 3.	Segmentation.
-4.	Analytics and reporting on email engagement metrics 
-(such as open rates, click-through rates, and conversion rates).
-5.	Integrations with popular CRM tools and social media platforms.
-6.	Drag-and-drop email editor and pre-designed email templates.
-7.	A/B testing for optimizing email campaigns.
-8.	Dynamic content.
-9.	Mobile-friendliness.
-10.	Contact list management and segmentation.
+4.	Analytics .
+5.	Mobile Friendliness.
+6.	Dynamic Content.
+7.	Integrations.
+8.	A/B Testing.
+9.	Integrated Drag-and-Drop Email Editor.
+10.	Contact list management system.
