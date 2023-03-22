@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "C6d+KJ05R+fmQwf0kO74HkfEvYlVpnzUqbSiDvudnYZeyaDdDvalOkvu+r6YNNqI4gqFwwXzU5M6gMVds0vhJQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\komputr\\Desktop\\project\\app\\Blazor-Automated-Email-Marketing-System\\Blazor-Automated-Email-Marketing-System\\Blazor-Automated-Email-Marketing-System.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\komputr\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.17.2\\microsoft.visualstudio.azure.containers.tools.targets.1.17.2.nupkg.sha512"
+  ],
+  "logs": []
+}
