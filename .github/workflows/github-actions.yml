@@ -1,23 +1,22 @@
 # Workflow different environments (development, staging, production).
-
 name: CI + CD pipeline
 
 # Controls when the workflow will run
 on:
-  # Push or Pull request on main
+  # On push or pull request on main
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
-  # Run this workflow manually from the Actions tab
+  # Run workflow manually from actions tab
   workflow_dispatch:
 
-# Jobs - sequentially or in parallel
+# Jobs - sequentially or parallel
 jobs:
-  # This workflow contains a single job called "build"
+  # Workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
+    # Type of runner that the job will run on
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -35,26 +34,27 @@ jobs:
       - uses: actions/checkout@v3 
       - name: ChecksComplete
         run: echo Checks complete code build successful
-        
-# Deployment to development environment
-    DeployDev:
-        name: Deploy to development
-        # Job to run only if the event is a pull request
-        if: github.event.name == 'pull request'
-        # The job needs the build job bto pass first
-        needs: [ Build ]
-        runs-on: ubuntu-latest
-        # Define environmernt variables
-        environment: 
-        # must match environments in repoasitory
+
+  # Deployment to development environment
+  DeployDev:
+    name: Deploy to development
+    # Job to run only if the event is a pull request
+    if: github.event.name == 'pull request'
+    # The job needs the build job bto pass first
+    needs: [ Build ]
+    runs-on: ubuntu-latest
+    # Define environmernt variables
+    environment:
+    # must match environments in repoasitory
         name: Development
-      url: 'http//dev//myapp.com'
+        url: 'http//dev//myapp.com'
     steps:
-      - name: Deploy
-        run: echo Code deplyment to http://dev.myapp.com
-        
-# Deployment to staging environment
-DeployStaging:
+        - name: Deploy
+          run: echo Code deplyment to http://dev.myapp.com
+
+    
+  # Deployment to staging environment
+  DeployStaging:
       name: Deploy to staging
       # Deploy only if committing  to main
       if: github.event.ref == 'refs/head/main'
@@ -67,8 +67,9 @@ DeployStaging:
           - name: Deply
             run: echo Deploying to staging http://test.myapp.com
 
-# Deployment to production environment
-DeplyProduction:
+
+  # Deployment to production environment
+  DeployProduction:
     name: Deploy to production
     needs: [ DeployStaging ]
     runs-on: ubuntu-latest
