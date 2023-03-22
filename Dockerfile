@@ -22,6 +22,6 @@ RUN dotnet publish "Blazor-Automated-Email-Marketing-System.csproj" -c Release -
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Blazor-Automated-Email-Marketing-System.dll
+ENTRYPOINT ["dotnet", "Blazor-Automated-Email-Marketing-System.dll"]
 
-COPY ["./Blazor-Automated-Email-Marketing-System.csproj", "./"]
+COPY ["Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj", "./Blazor-Automated-Email-Marketing-System/"]

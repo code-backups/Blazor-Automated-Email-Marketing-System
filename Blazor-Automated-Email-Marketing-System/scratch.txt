@@ -1,0 +1,10 @@
+﻿
+cd C:\Users\komputr\Desktop\project\app\Blazor-Automated-Email-Marketing-System
+
+docker login
+
+docker build -f "C:\Users\komputr\Desktop\project\app\Blazor-Automated-Email-Marketing-System\Dockerfile" -t blazor-automated-email-marketing-system "C:\Users\komputr\Desktop\project\app\Blazor-Automated-Email-Marketing-System"
+
+docker tag blazor-automated-email-marketing-system 404bot/blazor-automated-email-marketing-system:v1.0
+
+docker push 404bot/blazor-automated-email-marketing-system:v1.0
