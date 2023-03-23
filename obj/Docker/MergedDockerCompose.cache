@@ -3,11 +3,11 @@ services:
   blazor-automated-email-marketing-system:
     build:
       context: C:\Users\komputr\Desktop\project\app\Blazor-Automated-Email-Marketing-System
-      dockerfile: Blazor-Automated-Email-Marketing-System\Dockerfile
+      dockerfile: Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_URLS: https://+:443;http://+:80
-    image: blazorautomatedemailmarketingsystem
+    image: blazor-automated-email-marketing-system:v1.0
     networks:
       default: null
     ports:

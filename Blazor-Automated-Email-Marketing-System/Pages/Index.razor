@@ -1,9 +1,14 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
+<PageTitle>@Title</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>Make Inboxes Great Again!</h1>
 
-Welcome to your new app.
+<p>Email Junk-Food</p>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<SurveyPrompt Title="@Title"/>
+
+@code
+{
+        private const string Title = "Blazor Automated Email Marketing System";
+}

@@ -6,6 +6,8 @@ C:\Users\komputr\Desktop\project\app\Blazor-Automated-Email-Marketing-System\Bla
 C:\Users\komputr\Desktop\project\app\Blazor-Automated-Email-Marketing-System\Blazor-Automated-Email-Marketing-System\bin\Debug\net7.0\Blazor-Automated-Email-Marketing-System.runtimeconfig.json
 C:\Users\komputr\Desktop\project\app\Blazor-Automated-Email-Marketing-System\Blazor-Automated-Email-Marketing-System\bin\Debug\net7.0\Blazor-Automated-Email-Marketing-System.dll
 C:\Users\komputr\Desktop\project\app\Blazor-Automated-Email-Marketing-System\Blazor-Automated-Email-Marketing-System\bin\Debug\net7.0\Blazor-Automated-Email-Marketing-System.pdb
+C:\Users\komputr\Desktop\project\app\Blazor-Automated-Email-Marketing-System\Blazor-Automated-Email-Marketing-System\bin\Debug\net7.0\Radzen.Blazor.dll
+C:\Users\komputr\Desktop\project\app\Blazor-Automated-Email-Marketing-System\Blazor-Automated-Email-Marketing-System\bin\Debug\net7.0\System.Linq.Dynamic.Core.dll
 C:\Users\komputr\Desktop\project\app\Blazor-Automated-Email-Marketing-System\Blazor-Automated-Email-Marketing-System\obj\Debug\net7.0\Blazor-Automated-Email-Marketing-System.csproj.AssemblyReference.cache
 C:\Users\komputr\Desktop\project\app\Blazor-Automated-Email-Marketing-System\Blazor-Automated-Email-Marketing-System\obj\Debug\net7.0\Blazor-Automated-Email-Marketing-System.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\komputr\Desktop\project\app\Blazor-Automated-Email-Marketing-System\Blazor-Automated-Email-Marketing-System\obj\Debug\net7.0\Blazor-Automated-Email-Marketing-System.AssemblyInfoInputs.cache
@@ -25,6 +27,7 @@ C:\Users\komputr\Desktop\project\app\Blazor-Automated-Email-Marketing-System\Bla
 C:\Users\komputr\Desktop\project\app\Blazor-Automated-Email-Marketing-System\Blazor-Automated-Email-Marketing-System\obj\Debug\net7.0\scopedcss\Shared\NavMenu.razor.rz.scp.css
 C:\Users\komputr\Desktop\project\app\Blazor-Automated-Email-Marketing-System\Blazor-Automated-Email-Marketing-System\obj\Debug\net7.0\scopedcss\bundle\Blazor-Automated-Email-Marketing-System.styles.css
 C:\Users\komputr\Desktop\project\app\Blazor-Automated-Email-Marketing-System\Blazor-Automated-Email-Marketing-System\obj\Debug\net7.0\scopedcss\projectbundle\Blazor-Automated-Email-Marketing-System.bundle.scp.css
+C:\Users\komputr\Desktop\project\app\Blazor-Automated-Email-Marketing-System\Blazor-Automated-Email-Marketing-System\obj\Debug\net7.0\Blazor-Automated-Email-Marketing-System.csproj.CopyComplete
 C:\Users\komputr\Desktop\project\app\Blazor-Automated-Email-Marketing-System\Blazor-Automated-Email-Marketing-System\obj\Debug\net7.0\Blazor-Automated-Email-Marketing-System.dll
 C:\Users\komputr\Desktop\project\app\Blazor-Automated-Email-Marketing-System\Blazor-Automated-Email-Marketing-System\obj\Debug\net7.0\refint\Blazor-Automated-Email-Marketing-System.dll
 C:\Users\komputr\Desktop\project\app\Blazor-Automated-Email-Marketing-System\Blazor-Automated-Email-Marketing-System\obj\Debug\net7.0\Blazor-Automated-Email-Marketing-System.pdb

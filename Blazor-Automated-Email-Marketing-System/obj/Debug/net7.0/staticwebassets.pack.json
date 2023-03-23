@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\Blazor-Automated-Email-Marketing-System.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\komputr\\Desktop\\project\\app\\Blazor-Automated-Email-Marketing-System\\Blazor-Automated-Email-Marketing-System\\wwwroot\\css\\Blazor-Automated-Email-Marketing-System.styles.css",
+      "PackagePath": "staticwebassets\\css\\Blazor-Automated-Email-Marketing-System.styles.css"
+    },
+    {
       "Id": "C:\\Users\\komputr\\Desktop\\project\\app\\Blazor-Automated-Email-Marketing-System\\Blazor-Automated-Email-Marketing-System\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css"
     },
