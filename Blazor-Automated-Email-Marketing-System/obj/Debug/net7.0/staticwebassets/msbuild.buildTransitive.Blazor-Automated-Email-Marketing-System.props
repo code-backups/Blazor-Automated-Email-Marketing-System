@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\Blazor-Automated-Email-Marketing-System.props" />
-</Project>
