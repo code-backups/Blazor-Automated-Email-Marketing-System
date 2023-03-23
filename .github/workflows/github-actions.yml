@@ -1,79 +1,73 @@
-# Workflow for building and deploying the Blazor Automated Email Marketing System app
-name: Build and Deploy
+# This workflow demonstrates how you can use various environments (development, staging, production) in Github.
 
-# Define triggers for the workflow
-on:
-  # Run workflow on push or pull request on main branch
+name: CI + CD demo pipeline
+
+# Define when the workflow should run. On a push to main, a PR to main or manually with workflow_dispatch
+on: 
   push:
-    branches: [main]
+    branches: [ main ] 
   pull_request:
-    branches: [main]
+    branches: [ main ]
+  workflow_dispatch:
 
-# Define jobs to be run in the workflow
+# Define some jobs that should run
+
 jobs:
-  # Build job - builds the Docker image and pushes it to Docker Hub
-  build-and-push:
-    runs-on: ubuntu-latest # Set the operating system for the job
+  # Define a build job
+  Build:
+    runs-on: ubuntu-latest
     steps:
-      # Check out the source code
-      - uses: actions/checkout@v2
-      # Build the Docker image and tag it with the version number
-      - name: Build and tag Docker image
-        id: docker_build
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          push: true
-          tags: 404bot/blazor-automated-email-marketing-system:v1.0
-      # Get the SHA of the commit for use in the deployment step
-      - name: Get commit SHA
-        run: echo "::set-output name=commit_sha::$(git rev-parse HEAD)"
-        id: commit_sha
+      - uses: actions/checkout@v3
+      - name: Code_scanning
+        run: echo Imagine we are linting and scanning our code here
+      - name: Compile
+        run: echo Imagine we are compiling our code here
+      - name: Test
+        run: echo Imagine we are testing our code here 
+      - name: ChecksComplete
+        run: echo Checks complete code built successfully
+    
+    # Build and test have completed successfully
 
-  # Deploy job - deploys the app to the different environments
-  deploy:
-    needs: [build-and-push] # Ensure that the build job completes before starting deployment
-    runs-on: ubuntu-latest # Set the operating system for the job
-    strategy:
-      matrix:
-        environment: [development, staging, production] # Set up a matrix of environments to deploy to
+  # Define a deploy to development environment job
+  DeployDev:
+    name: Deploy to Development
+    # Job runs only if the event is a pull request
+    if: github.event_name == 'pull_request'
+    # The job needs the build job to pass first
+    needs: [ Build ]
+    runs-on: ubuntu-latest
+    # Define some environment variables
+    environment: 
+      # The environment name must match the environment name in the repository
+      name: Development
+      url: 'http://dev.myapp.com'
     steps:
-      # Check out the source code
-      - uses: actions/checkout@v2
-      # Set up environment variables based on the environment being deployed to
-      - name: Set up environment variables
-        run: |
-          echo "ENVIRONMENT=${{ matrix.environment }}" >> $GITHUB_ENV
-          case "${{ matrix.environment }}" in
-            development)
-              echo "URL=http://dev.myapp.com" >> $GITHUB_ENV
-              ;;
-            staging)
-              echo "URL=http://test.myapp.com" >> $GITHUB_ENV
-              ;;
-            production)
-              echo "URL=http://www.myapp.com" >> $GITHUB_ENV
-              ;;
-            *)
-              echo "Invalid environment: ${{ matrix.environment }}" >&2
-              exit 1
-              ;;
-          esac
-      # Pull the Docker image from Docker Hub
-      - name: Pull Docker image
-        uses: docker/login-action@v1
-        with:
-          registry: docker.io
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      # Deploy the app using the Docker image and environment variables
-      - name: Deploy to ${matrix.environment}
-        run: |
-          docker run --name blazor-app-${{ matrix.environment }} \
-                     -e ASPNETCORE_ENVIRONMENT=${{ matrix.environment }} \
-                     -e APP_URL=${{ env.URL }} \
-                     -p 8080:80 \
-                     -d 404bot/blazor-automated-email-marketing-system:v1.0
-        env:
-          DOCKER_IMAGE: 404bot/blazor-automated-email-marketing-system:v1.0
-          COMMIT_SHA: ${{ needs.build-and-push.outputs.commit_sha }}
+      - name: Deploy
+        run: echo Deploying to Development http://dev.myapp.com
+  
+  # Our deployment to Staging environment
+  DeployStaging:
+    name: Deploy to Staging
+    # deploy to Staging only if we are committing to main
+    if: github.event.ref == 'refs/heads/main'
+    needs: [ Build ]
+    runs-on: ubuntu-latest
+    environment:
+      name: Staging
+      url: 'http://test.myapp.com'
+    steps:
+    - name: Deploy
+      run: echo Deploying to Staging http://test.myapp.com
+  
+  # Deploy to Production environment
+  DeployProduction:
+    name: Deploy to Production
+    needs: [DeployStaging]
+    runs-on: ubuntu-latest
+    environment:
+      name: Production
+      url: 'http://www.myapp.com'
+    steps:
+      - name: Deploy
+        run: echo Deploying to Production http://myapp.com
