@@ -32,8 +32,13 @@ jobs:
   # Define a deploy to development environment job
   DeployDev:
     name: Deploy to Development
+
     # Job runs only if the event is a pull request
-    if: github.event_name == 'pull_request'
+    # if: github.event_name == 'pull_request'
+
+    # TODO hack for testing ci/cd ---------------------------------------------------> remove
+    if: github.event_name == 'pull_request' || github.event_name == 'push' # adds push
+
     # The job needs the build job to pass first
     needs: [ Build ]
     runs-on: ubuntu-latest
