@@ -1,4 +1,8 @@
-# This workflow demonstrates how you can use various environments (development, staging, production) in Github.
+# NULL FILE SUPERCEDED: Blazor-Automated-Email-Marketing-System/azure-pipelines.yml migration to the Azure DevOps pipeline.
+# should disable or delete this GitHub Actions YAML file to avoid conflicts.
+
+
+# This GitHub Actions workflow demonstrates how you can use various environments (development, staging, production).
 
 name: CI + CD demo pipeline
 
@@ -36,7 +40,7 @@ jobs:
     # Job runs only if the event is a pull request
     # if: github.event_name == 'pull_request'
 
-    # TODO hack for testing ci/cd ---------------------------------------------------> remove
+    # TODO hack for testing ci/cd ---------------------------------------------------> TODO remove push
     if: github.event_name == 'pull_request' || github.event_name == 'push' # adds push
 
     # The job needs the build job to pass first

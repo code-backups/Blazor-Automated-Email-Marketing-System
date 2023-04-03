@@ -1,16 +1,12 @@
-# Docker
-# Build a Docker image
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
-
+# Define the branch to trigger the pipeline on
 trigger:
 - main
 
-resources:
-- repo: self
-
+# Define variables to be used in the pipeline
 variables:
-  tag: '$(Build.BuildId)'
+  imageName: 'myapp'
 
+# Define the stages of the pipeline
 stages:
 - stage: Build
   displayName: Build image
@@ -18,12 +14,101 @@ stages:
   - job: Build
     displayName: Build
     pool:
-      vmImage: ubuntu-latest
+      vmImage: 'ubuntu-latest'
     steps:
-    - task: Docker@2
-      displayName: Build an image
-      inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/Blazor-Automated-Email-Marketing-System/Dockerfile'
-        tags: |
-          $(tag)
+    # Checkout the code repository
+    - checkout: self
+    # Add steps for code scanning, compiling, testing, and completion checks
+    - name: Code_scanning
+      run: echo Imagine we are linting and scanning our code here
+    - name: Compile
+      run: echo Imagine we are compiling our code here
+    - name: Test
+      run: echo Imagine we are testing our code here 
+    - name: ChecksComplete
+      run: echo Checks complete code built successfully
+
+- stage: DeployDevelopment
+  displayName: Deploy to Development
+  dependsOn: Build
+  condition: succeeded()
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy
+    # Define the environment for deployment
+    environment: 'Development'
+    strategy:
+      runOnce:
+        deploy:
+          pool:
+            vmImage: 'ubuntu-latest'
+          steps:
+          # Push the Docker image to the registry
+          - task: Docker@2
+            displayName: Push image to Docker Hub
+            inputs:
+              command: push
+              containerRegistry: 'Docker Hub'
+              repository: 'my-docker-registry/$(imageName)'
+              tags: |
+                $(imageName):$(Build.BuildId)
+          # Add a step for deployment
+          - name: Deploy
+            run: echo Deploying to Development http://dev.myapp.com
+
+- stage: DeployStaging
+  displayName: Deploy to Staging
+  dependsOn: Build
+  # Define the condition for deployment to staging
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy
+    # Define the environment for deployment
+    environment: 'Staging'
+    strategy:
+      runOnce:
+        deploy:
+          pool:
+            vmImage: 'ubuntu-latest'
+          steps:
+          # Push the Docker image to the registry
+          - task: Docker@2
+            displayName: Push image to Docker Hub
+            inputs:
+              command: push
+              containerRegistry: 'Docker Hub'
+              repository: 'my-docker-registry/$(imageName)'
+              tags: |
+                $(imageName):$(Build.BuildId)
+          # Add a step for deployment
+          - name: Deploy
+            run: echo Deploying to Staging http://test.myapp.com
+
+- stage: DeployProduction
+  displayName: Deploy to Production
+  dependsOn: DeployStaging
+  condition: succeeded()
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy
+    # Define the environment for deployment
+    environment: 'Production'
+    strategy:
+      runOnce:
+        deploy:
+          pool:
+            vmImage: 'ubuntu-latest'
+          steps:
+          # Push the Docker image to the registry
+          - task: Docker@2
+            displayName: Push image to Docker Hub
+            inputs:
+              command: push
+              containerRegistry: 'Docker Hub'
+              repository: 'my-docker-registry/$(imageName)'
+              tags: |
+                $(imageName):$(Build.BuildId)
+          # Add a step for deployment
+          - name: Deploy
+            run: echo Deploying to Production http://
