@@ -1,4 +1,5 @@
 bin/
 obj/
-migration/
+Migrations/
 .vs/
+Blazor-Automated-Email-Marketing-System/Data/database.db
