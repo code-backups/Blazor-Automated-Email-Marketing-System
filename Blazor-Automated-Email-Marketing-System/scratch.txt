@@ -3,10 +3,11 @@ cd C:\Users\komputr\Desktop\project\app\Blazor-Automated-Email-Marketing-System
 
 docker login
 
+
 docker build -f "C:\Users\komputr\Desktop\project\app\Blazor-Automated-Email-Marketing-System\Dockerfile" -t blazor-automated-email-marketing-system "C:\Users\komputr\Desktop\project\app\Blazor-Automated-Email-Marketing-System"
+
 docker tag blazor-automated-email-marketing-system 404bot/blazor-automated-email-marketing-system:v1.0
 docker push 404bot/blazor-automated-email-marketing-system:v1.0
-
 
 
 docker ps
@@ -19,3 +20,9 @@ docker run -it --rm -p 51645:80 -p 51644:443 --name blazor-debug 94e28ed1e4f8
 docker exec -it bb8642c7b9da cmd
 docker restart bb8642c7b9da
 docker-compose up -d
+
+docker ps
+CONTAINER ID   IMAGE                                          COMMAND                  CREATED         STATUS         PORTS                                           NAMES
+59d96e127f15   blazor-automated-email-marketing-system:v1.0   "dotnet Blazor-Autom…"   5 minutes ago   Up 5 minutes   0.0.0.0:57401->80/tcp, 0.0.0.0:57400->443/tcp   dockercompose6567836222499303107-blazor-automated-email-marketing-system-1
+    https://localhost:57400 HTTPS
+
