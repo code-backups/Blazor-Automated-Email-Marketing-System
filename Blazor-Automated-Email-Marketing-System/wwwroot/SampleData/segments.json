@@ -1,0 +1,68 @@
+{
+  "Segments": [
+    {
+      "SegmentId": 1,
+      "Name": "Cooking",
+      "SubscriberSegments": [
+        {
+          "SubscriberId": 1
+        }
+      ],
+      "CampaignSegments": [],
+      "Interests": [
+        {
+          "SegmentInterestId": 1,
+          "Interest": "Cooking"
+        }
+      ]
+    },
+    {
+      "SegmentId": 2,
+      "Name": "Travel",
+      "SubscriberSegments": [
+        {
+          "SubscriberId": 1
+        }
+      ],
+      "CampaignSegments": [],
+      "Interests": [
+        {
+          "SegmentInterestId": 2,
+          "Interest": "Travel"
+        }
+      ]
+    },
+    {
+      "SegmentId": 3,
+      "Name": "Football",
+      "SubscriberSegments": [
+        {
+          "SubscriberId": 2
+        }
+      ],
+      "CampaignSegments": [],
+      "Interests": [
+        {
+          "SegmentInterestId": 3,
+          "Interest": "Football"
+        }
+      ]
+    },
+    {
+      "SegmentId": 4,
+      "Name": "Basketball",
+      "SubscriberSegments": [
+        {
+          "SubscriberId": 2
+        }
+      ],
+      "CampaignSegments": [],
+      "Interests": [
+        {
+          "SegmentInterestId": 4,
+          "Interest": "Basketball"
+        }
+      ]
+    }
+  ]
+}

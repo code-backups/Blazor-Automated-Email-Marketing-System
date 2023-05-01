@@ -1,0 +1,93 @@
+{
+  "Subscribers": [
+    {
+      "SubscriberId": 1,
+      "Email": "johndoe@example.com",
+      "Gender": "M",
+      "OptIn": true,
+      "FirstName": "John",
+      "LastName": "Doe",
+      "DateOfBirth": "1980-01-01",
+      "Country": "US",
+      "SubscriberSegments": [
+        {
+          "SegmentId": 1
+        }
+      ],
+      "Interests": [
+        {
+          "SegmentInterestId": 1,
+          "SegmentId": 1,
+          "Interest": "Cooking"
+        },
+        {
+          "SegmentInterestId": 2,
+          "SegmentId": 2,
+          "Interest": "Travel"
+        }
+      ]
+    },
+    {
+      "SubscriberId": 2,
+      "Email": "janedoe@example.com",
+      "Gender": "F",
+      "OptIn": true,
+      "FirstName": "Jane",
+      "LastName": "Doe",
+      "DateOfBirth": "1985-05-15",
+      "Country": "US",
+      "SubscriberSegments": [
+        {
+          "SegmentId": 2
+        }
+      ],
+      "Interests": [
+        {
+          "SegmentInterestId": 3,
+          "SegmentId": 3,
+          "Interest": "Football"
+        },
+        {
+          "SegmentInterestId": 4,
+          "SegmentId": 4,
+          "Interest": "Basketball"
+        }
+      ]
+    },
+    {
+      "SubscriberId": 3,
+      "Email": "bobsmith@example.com",
+      "Gender": "M",
+      "OptIn": true,
+      "FirstName": "Bob",
+      "LastName": "Smith",
+      "DateOfBirth": "1990-11-30",
+      "Country": "EU",
+      "SubscriberSegments": [
+        {
+          "SegmentId": 1
+        },
+        {
+          "SegmentId": 3
+        }
+      ],
+      "Interests": [
+        {
+          "SegmentInterestId": 5,
+          "SegmentId": 5,
+          "Interest": "Reading"
+        },
+        {
+          "SegmentInterestId": 6,
+          "SegmentId": 6,
+          "Interest": "Travel"
+        },
+        {
+          "SegmentInterestId": 7,
+          "SegmentId": 7,
+          "Interest": "Cooking"
+        }
+      ]
+    }
+  ]
+}
