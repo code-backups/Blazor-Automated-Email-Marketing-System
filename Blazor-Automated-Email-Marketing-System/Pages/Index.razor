@@ -1,40 +1,102 @@
 ﻿@page "/"
+@using System.IO
 @using Blazor_Automated_Email_Marketing_System.dbContext
 @using Blazor_Automated_Email_Marketing_System.Models
-@using System.Text.Json
-@inject AppDbContext _context
+@using Newtonsoft.Json
+@using Newtonsoft.Json.Linq
 
-<button @onclick="InsertData">Insert Data</button>
+<h1>Campaigns</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Subject</th>
+            <th>Content</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (_campaigns != null)
+        {
+            @foreach (var campaign in _campaigns)
+            {
+                <tr>
+                    <td>@campaign.Name</td>
+                    <td>@campaign.Subject</td>
+                    <td>@campaign.Content</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<h1>Segments</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (_segments != null)
+        {
+            @foreach (var segment in _segments)
+            {
+                <tr>
+                    <td>@segment.Name</td>
+                    <td>@segment.SegmentId</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<h1>Subscribers</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (_subscribers != null)
+        {
+            @foreach (var subscriber in _subscribers)
+            {
+                <tr>
+                    <td>@subscriber.Email</td>
+                    <td>@subscriber.FirstName</td>
+                    <td>@subscriber.LastName</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
 
 @code {
+    private readonly AppDbContext _databaseContext;
+    private List<Campaign> _campaigns;
+    private List<Segment> _segments;
+    private List<Subscriber> _subscribers;
 
-    private async Task InsertData()
+    protected override async Task OnInitializedAsync()
     {
-        try
-        {
-            // Read subscribers from subscribers.json
-            var subscribersJson = await File.ReadAllTextAsync("SampleData/subscribers.json");
-            var subscribers = JsonSerializer.Deserialize<List<Subscriber>>(subscribersJson);
+        var campaignJson = await File.ReadAllTextAsync("wwwroot/SampleData/campaigns.json");
+        _campaigns = JsonConvert.DeserializeObject<List<Campaign>>(campaignJson);
 
-            // Read segments from segments.json
-            var segmentsJson = await File.ReadAllTextAsync("SampleData/segments.json");
-            var segments = JsonSerializer.Deserialize<List<Segment>>(segmentsJson);
+        var segmentJson = await File.ReadAllTextAsync("wwwroot/SampleData/segments.json");
+        var segmentObject = JObject.Parse(segmentJson);
+        var segmentArray = segmentObject["Segments"].ToString();
+        _segments = JsonConvert.DeserializeObject<List<Segment>>(segmentArray);
 
-            // Read campaigns from campaigns.json
-            var campaignsJson = await File.ReadAllTextAsync("SampleData/campaigns.json");
-            var campaigns = JsonSerializer.Deserialize<List<Campaign>>(campaignsJson);
-
-            // Insert data into the database
-            _context.Subscribers.AddRange(subscribers);
-            _context.Segments.AddRange(segments);
-            _context.Campaigns.AddRange(campaigns);
-
-            await _context.SaveChangesAsync();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error inserting data: {ex.Message}");
-        }
+        var subscriberJson = await File.ReadAllTextAsync("wwwroot/SampleData/subscribers.json");
+        var subscriberObject = JObject.Parse(subscriberJson);
+        var subscriberArray = subscriberObject["Subscribers"].ToString();
+        _subscribers = JsonConvert.DeserializeObject<List<Subscriber>>(subscriberArray);
     }
-
 }
