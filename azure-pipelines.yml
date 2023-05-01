@@ -1,3 +1,8 @@
+# Azure pipeline yml supercedes workflows github actions yml
+
+# TODO replace my-docker-registry
+# TODO urls
+
 # Define the branch to trigger the pipeline on
 trigger:
 - main
@@ -111,4 +116,4 @@ stages:
                 $(imageName):$(Build.BuildId)
           # Add a step for deployment
           - name: Deploy
-            run: echo Deploying to Production http://
+            run: echo Deploying to Production http://live.myapp.com
