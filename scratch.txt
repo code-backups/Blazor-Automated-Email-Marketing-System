@@ -1,0 +1,25 @@
+Objective:	Build feature 1. "Email Campaign Automation" in iterations onto branch_01 for CI/CD pull approval into main
+Goal:		Get a system of commits / approvals working within GitHub Actions CI/CD, then Azure
+
+
+Nine prioritised features:
+
+1.	Email Campaign Automation:
+The ability to automate email campaigns is crucial for any email marketing system. This feature allows for the scheduling of emails to be sent at specific times and dates, saving time and increasing efficiency.
+
+
+2.	Personalization
+3.	Customer Segmentation
+4.	Analytics
+5.	Mobile Friendliness
+6.	Dynamic Content
+7.	Integrations
+8.	A/B Testing
+9.	Integrated Drag-and-Drop Email Editor
+
+
+
+Note:	MySQL database population with sample data requires finishing.
+
+Plan:	Use this to set up correct commit / approval CI/CD.
+		Then build feature 1 upon the working model.

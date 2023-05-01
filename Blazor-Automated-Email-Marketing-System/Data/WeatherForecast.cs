@@ -1,5 +1,6 @@
 namespace Blazor_Automated_Email_Marketing_System.Data
 {
+    // testing git lock
     public class WeatherForecast
     {
         public DateOnly Date { get; set; }
