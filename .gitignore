@@ -1,5 +1,5 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
-
-/.vs
+﻿.vs/
+bin/
+obj/
+Migrations/
+Data/database.db

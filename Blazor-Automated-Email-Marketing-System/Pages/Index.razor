@@ -1,0 +1,40 @@
+﻿@page "/"
+@using Blazor_Automated_Email_Marketing_System.dbContext
+@using Blazor_Automated_Email_Marketing_System.Models
+@using System.Text.Json
+@inject AppDbContext _context
+
+<button @onclick="InsertData">Insert Data</button>
+
+@code {
+
+    private async Task InsertData()
+    {
+        try
+        {
+            // Read subscribers from subscribers.json
+            var subscribersJson = await File.ReadAllTextAsync("SampleData/subscribers.json");
+            var subscribers = JsonSerializer.Deserialize<List<Subscriber>>(subscribersJson);
+
+            // Read segments from segments.json
+            var segmentsJson = await File.ReadAllTextAsync("SampleData/segments.json");
+            var segments = JsonSerializer.Deserialize<List<Segment>>(segmentsJson);
+
+            // Read campaigns from campaigns.json
+            var campaignsJson = await File.ReadAllTextAsync("SampleData/campaigns.json");
+            var campaigns = JsonSerializer.Deserialize<List<Campaign>>(campaignsJson);
+
+            // Insert data into the database
+            _context.Subscribers.AddRange(subscribers);
+            _context.Segments.AddRange(segments);
+            _context.Campaigns.AddRange(campaigns);
+
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error inserting data: {ex.Message}");
+        }
+    }
+
+}
