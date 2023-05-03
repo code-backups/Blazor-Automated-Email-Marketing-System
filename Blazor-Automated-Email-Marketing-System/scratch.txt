@@ -27,3 +27,8 @@ CONTAINER ID   IMAGE                                          COMMAND           
 59d96e127f15   blazor-automated-email-marketing-system:v1.0   "dotnet Blazor-Autom…"   5 minutes ago   Up 5 minutes   0.0.0.0:57401->80/tcp, 0.0.0.0:57400->443/tcp   dockercompose6567836222499303107-blazor-automated-email-marketing-system-1
     
     https://localhost:57400     HTTPS: 443
+
+
+    PM> 
+    add-migration m6
+    update-database
