@@ -1,0 +1,149 @@
+{
+  "tags": [
+    {
+      "id": 1,
+      "name": "Sports",
+      "description": "Subscribers interested in sports",
+      "subscriberIds": [1, 2],
+      "segmentCriteriaIds": [1]
+    },
+    {
+      "id": 2,
+      "name": "Technology",
+      "description": "Subscribers interested in technology",
+      "subscriberIds": [2],
+      "segmentCriteriaIds": []
+    }
+  ],
+  "subscribers": [
+    {
+      "id": 1,
+      "email": "john.doe@example.com",
+      "firstName": "John",
+      "lastName": "Doe",
+      "country": "United States",
+      "gender": 0,
+      "dateOfBirth": "1980-01-01T00:00:00",
+      "optIn": true,
+      "tagId": 1,
+      "segmentIds": [1]
+    },
+    {
+      "id": 2,
+      "email": "jane.doe@example.com",
+      "firstName": "Jane",
+      "lastName": "Doe",
+      "country": "Canada",
+      "gender": 1,
+      "dateOfBirth": "1985-01-01T00:00:00",
+      "optIn": true,
+      "tagId": 2,
+      "segmentIds": []
+    }
+  ],
+  "segmentCriterias": [
+    {
+      "id": 1,
+      "name": "Sports fans in the US",
+      "description": "Subscribers interested in sports who live in the US",
+      "tagId": 1,
+      "subscriberSegmentIds": [1]
+    }
+  ],
+  "subscriberSegments": [
+    {
+      "id": 1,
+      "name": "Sports fans in the US",
+      "description": "Subscribers interested in sports who live in the US",
+      "tagId": 1,
+      "segmentCriteriaIds": [1],
+      "subscriberIds": [1],
+      "emailMessageIds": [1, 2]
+    }
+  ],
+  "emailMessages": [
+    {
+      "id": 1,
+      "subscriberSegmentId": 1,
+      "sendDate": "2023-05-15T00:00:00",
+      "subject": "Get ready for the playoffs!",
+      "body": "Dear sports fans, get ready for the playoffs with our latest offers."
+    },
+    {
+      "id": 2,
+      "subscriberSegmentId": 1,
+      "sendDate": "2023-05-18T00:00:00",
+      "subject": "Last chance for playoff discounts!",
+      "body": "This is your last chance to take advantage of our playoff discounts. Don't miss out!"
+    }
+  ],
+  "campaigns": [
+    {
+      "id": 1,
+      "name": "Sports Campaign",
+      "description": "A campaign for sports fans",
+      "sendDate": "2023-05-15T00:00:00",
+      "subscriberSegmentIds": [1],
+      "emailMessageIds": [1],
+      "subscriberSegments": [
+        {
+          "id": 1,
+          "name": "Sports fans in the US",
+          "description": "Subscribers interested in sports who live in the US",
+          "tagId": 1,
+          "tag": {
+            "id": 1,
+            "name": "Sports",
+            "description": "Subscribers interested in sports",
+            "subscriberIds": [1, 2],
+            "segmentCriteriaIds": [1]
+          },
+          "subscribers": [
+            {
+              "id": 1,
+              "email": "john.doe@example.com",
+              "firstName": "John",
+              "lastName": "Doe",
+              "country": "United States",
+              "gender": 0,
+              "dateOfBirth": "1980-01-01T00:00:00",
+              "optIn": true,
+              "tagId": 1
+            },
+            {
+              "id": 2,
+              "email": "jane.doe@example.com",
+              "firstName": "Jane",
+              "lastName": "Doe",
+              "country": "Canada",
+              "gender": 1,
+              "dateOfBirth": "1985-01-01T00:00:00",
+              "optIn": true,
+              "tagId": 1
+            }
+          ],
+          "segmentCriteriaIds": [1],
+          "emailMessageIds": [1],
+          "emailMessages": [
+            {
+              "id": 1,
+              "subscriberSegmentId": 1,
+              "sendDate": "2023-05-15T00:00:00",
+              "subject": "Get ready for the playoffs!",
+              "body": "Dear sports fans, get ready for the playoffs with our latest offers."
+            }
+          ]
+        }
+      ],
+      "emailMessages": [
+        {
+          "id": 1,
+          "subscriberSegmentId": 1,
+          "sendDate": "2023-05-15T00:00:00",
+          "subject": "Get ready for the playoffs!",
+          "body": "Dear sports fans, get ready for the playoffs with our latest offers."
+        }
+      ]
+    }
+  ]
+}

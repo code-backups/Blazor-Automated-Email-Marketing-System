@@ -15,10 +15,22 @@
                 </RadzenStack>
             </RadzenHeader>
             <RadzenSidebar @bind-Expanded="@_sidebar2Expanded">
+
                 <RadzenPanelMenu>
                     <RadzenPanelMenuItem Text="Dash" Icon="home" Path="/"/>
-                    <RadzenPanelMenuItem Text="Weather" Icon="donut_large" Path="fetchdata"/>
+                    <RadzenPanelMenuItem Text="Features" Icon="folder">
+                        <RadzenPanelMenuItem Text="Feature 1" Path="Features/1"/>
+                        <RadzenPanelMenuItem Text="Feature 2" Path="Features/2"/>
+                        <RadzenPanelMenuItem Text="Feature 3" Path="Features/3"/>
+                        <RadzenPanelMenuItem Text="Feature 4" Path="Features/4"/>
+                        <RadzenPanelMenuItem Text="Feature 5" Path="Features/5"/>
+                        <RadzenPanelMenuItem Text="Feature 6" Path="Features/6"/>
+                        <RadzenPanelMenuItem Text="Feature 7" Path="Features/7"/>
+                        <RadzenPanelMenuItem Text="Feature 8" Path="Features/8"/>
+                        <RadzenPanelMenuItem Text="Feature 9" Path="Features/9"/>
+                    </RadzenPanelMenuItem>
                 </RadzenPanelMenu>
+
             </RadzenSidebar>
             <RadzenBody>
                 <div class="rz-p-4">
