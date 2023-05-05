@@ -1,67 +1,100 @@
 ﻿@page "/"
 @using Newtonsoft.Json.Linq
+@using Blazor_Automated_Email_Marketing_System.Models
 @using Newtonsoft.Json
+@using Blazor_Automated_Email_Marketing_System.Services
 
 @inject DataService DataService
 
 @code {
-
     protected override async Task OnInitializedAsync()
     {
-        var campaigns = await DataService.GetAllCampaigns();
-        if (campaigns.Count == 0)
-        {
-            var sampleDataJson = await File.ReadAllTextAsync("wwwroot/SampleData/sampledata.json");
-            var sampleDataObject = JObject.Parse(sampleDataJson);
+        // Check if sample data already exists in database
+        var allSubscribers = await DataService.GetAllSubscribers();
+        var allCampaigns = await DataService.GetAllCampaigns();
+        var allTags = await DataService.GetAllTags();
+        var allSubscriberSegments = await DataService.GetAllSubscriberSegments();
+        var allEmailMessages = await DataService.GetAllEmailMessages();
 
-            var campaignsArray = sampleDataObject["campaigns"]?.ToString();
-            if (campaignsArray != null)
+        if (allSubscribers.Count == 0 && allCampaigns.Count == 0 && allTags.Count == 0 &&
+    allSubscriberSegments.Count == 0 && allEmailMessages.Count == 0)
+        {
+            // Load sample data from JSON file
+            var jsonData = await File.ReadAllTextAsync("wwwroot/sampledata/sampledata.json");
+            var jObject = JObject.Parse(jsonData);
+
+            // Parse JSON data
+            var subscribersJson = jObject["Subscribers"]?.ToString() ?? throw new ArgumentException("Subscribers JSON is null or empty");
+            var campaignsJson = jObject["Campaigns"]?.ToString() ?? throw new ArgumentException("Campaigns JSON is null or empty");
+            var tagsJson = jObject["Tags"]?.ToString() ?? throw new ArgumentException("Tags JSON is null or empty");
+            var segmentsJson = jObject["Segments"]?.ToString() ?? throw new ArgumentException("Segments JSON is null or empty");
+            var emailMessagesJson = jObject["EmailMessages"]?.ToString() ?? throw new ArgumentException("EmailMessages JSON is null or empty");
+
+            // Deserialize JSON data
+            var subscribers = JsonConvert.DeserializeObject<List<Subscriber>>(subscribersJson);
+            var campaigns = JsonConvert.DeserializeObject<List<Campaign>>(campaignsJson);
+            var tags = JsonConvert.DeserializeObject<List<Tag>>(tagsJson);
+            var segments = JsonConvert.DeserializeObject<List<Segment>>(segmentsJson);
+            var emailMessages = JsonConvert.DeserializeObject<List<EmailMessage>>(emailMessagesJson);
+
+            // Insert sample data into database if it doesn't already exist
+            if (subscribers != null)
             {
-                campaigns = JsonConvert.DeserializeObject<List<Campaign>>(campaignsArray);
+                foreach (var subscriber in subscribers)
+                {
+                    var existingSubscriber = await DataService.GetSubscriberByEmail(subscriber.Email);
+                    if (existingSubscriber == null)
+                    {
+                        await DataService.CreateSubscriber(subscriber);
+                    }
+                }
+            }
+
+            if (campaigns != null)
+            {
                 foreach (var campaign in campaigns)
                 {
-                    if (campaign.SubscriberSegmentIds == null)
+                    var existingCampaign = await DataService.GetCampaignByName(campaign.Name);
+                    if (existingCampaign == null)
                     {
-                        campaign.SubscriberSegmentIds = Array.Empty<int>();
+                        await DataService.CreateCampaign(campaign);
                     }
+                }
+            }
 
-                    if (campaign.SubscriberSegmentIds.Any())
+            if (tags != null)
+            {
+                foreach (var tag in tags)
+                {
+                    var existingTag = await DataService.GetTagByName(tag.Name);
+                    if (existingTag == null)
                     {
-                        var segmentIds = new List<int>();
-                        foreach (var segmentId in campaign.SubscriberSegmentIds)
-                        {
-                            var segment = await DataService.GetSegmentById(segmentId);
-                            if (segment != null)
-                            {
-                                segmentIds.Add(segment.Id);
-                            }
-                            else
-                            {
-                                Console.WriteLine($"Segment with ID {segmentId} not found.");
-                            }
-                        }
-                        campaign.SubscriberSegmentIds = segmentIds.ToArray();
+                        await DataService.CreateTag(tag);
                     }
+                }
+            }
 
-                    if (campaign.EmailMessageIds != null && campaign.EmailMessageIds.Any())
+            if (segments != null)
+            {
+                foreach (var segment in segments)
+                {
+                    var existingSegment = await DataService.GetSegmentByName(segment.Name);
+                    if (existingSegment == null)
                     {
-                        var emailMessageIds = new List<int>();
-                        foreach (var emailMessageId in campaign.EmailMessageIds)
-                        {
-                            var emailMessage = await DataService.GetEmailById(emailMessageId);
-                            if (emailMessage != null)
-                            {
-                                emailMessageIds.Add(emailMessage.Id);
-                            }
-                            else
-                            {
-                                Console.WriteLine($"Email message with ID {emailMessageId} not found.");
-                            }
-                        }
-                        campaign.EmailMessageIds = emailMessageIds.ToArray();
+                        await DataService.CreateSubscriberSegment(segment);
                     }
+                }
+            }
 
-                    await DataService.CreateCampaign(campaign);
+            if (emailMessages != null)
+            {
+                foreach (var message in emailMessages)
+                {
+                    var existingMessage = await DataService.GetEmailMessageBySubject(message.Subject);
+                    if (existingMessage == null)
+                    {
+                        await DataService.CreateEmailMessage(message);
+                    }
                 }
             }
         }
