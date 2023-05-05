@@ -1,149 +1,74 @@
 {
-  "tags": [
+  "Subscribers": [
     {
-      "id": 1,
-      "name": "Sports",
-      "description": "Subscribers interested in sports",
-      "subscriberIds": [1, 2],
-      "segmentCriteriaIds": [1]
+      "Id": 1,
+      "Email": "john.doe@example.com",
+      "FirstName": "John",
+      "LastName": "Doe",
+      "Country": "USA",
+      "DateOfBirth": "1990-01-01T00:00:00",
+      "SegmentIdsCsv": "1,2"
     },
     {
-      "id": 2,
-      "name": "Technology",
-      "description": "Subscribers interested in technology",
-      "subscriberIds": [2],
-      "segmentCriteriaIds": []
+      "Id": 2,
+      "Email": "jane.doe@example.com",
+      "FirstName": "Jane",
+      "LastName": "Doe",
+      "Country": "EU",
+      "DateOfBirth": "1992-03-15T00:00:00",
+      "SegmentIdsCsv": "1"
     }
   ],
-  "subscribers": [
+  "Campaigns": [
     {
-      "id": 1,
-      "email": "john.doe@example.com",
-      "firstName": "John",
-      "lastName": "Doe",
-      "country": "United States",
-      "gender": 0,
-      "dateOfBirth": "1980-01-01T00:00:00",
-      "optIn": true,
-      "tagId": 1,
-      "segmentIds": [1]
+      "Id": 1,
+      "Name": "Welcome Campaign",
+      "Description": "Welcome Campaign for new subscribers",
+      "SegmentIdsCsv": "1",
+      "EmailMessageIdsCsv": "1"
     },
     {
-      "id": 2,
-      "email": "jane.doe@example.com",
-      "firstName": "Jane",
-      "lastName": "Doe",
-      "country": "Canada",
-      "gender": 1,
-      "dateOfBirth": "1985-01-01T00:00:00",
-      "optIn": true,
-      "tagId": 2,
-      "segmentIds": []
+      "Id": 2,
+      "Name": "VIP Campaign",
+      "Description": "Campaign for VIP subscribers",
+      "SegmentIdsCsv": "2",
+      "EmailMessageIdsCsv": "2"
     }
   ],
-  "segmentCriterias": [
+  "Tags": [
     {
-      "id": 1,
-      "name": "Sports fans in the US",
-      "description": "Subscribers interested in sports who live in the US",
-      "tagId": 1,
-      "subscriberSegmentIds": [1]
-    }
-  ],
-  "subscriberSegments": [
-    {
-      "id": 1,
-      "name": "Sports fans in the US",
-      "description": "Subscribers interested in sports who live in the US",
-      "tagId": 1,
-      "segmentCriteriaIds": [1],
-      "subscriberIds": [1],
-      "emailMessageIds": [1, 2]
-    }
-  ],
-  "emailMessages": [
-    {
-      "id": 1,
-      "subscriberSegmentId": 1,
-      "sendDate": "2023-05-15T00:00:00",
-      "subject": "Get ready for the playoffs!",
-      "body": "Dear sports fans, get ready for the playoffs with our latest offers."
+      "Id": 1,
+      "Name": "VIP"
     },
     {
-      "id": 2,
-      "subscriberSegmentId": 1,
-      "sendDate": "2023-05-18T00:00:00",
-      "subject": "Last chance for playoff discounts!",
-      "body": "This is your last chance to take advantage of our playoff discounts. Don't miss out!"
+      "Id": 2,
+      "Name": "New"
     }
   ],
-  "campaigns": [
+  "Segments": [
     {
-      "id": 1,
-      "name": "Sports Campaign",
-      "description": "A campaign for sports fans",
-      "sendDate": "2023-05-15T00:00:00",
-      "subscriberSegmentIds": [1],
-      "emailMessageIds": [1],
-      "subscriberSegments": [
-        {
-          "id": 1,
-          "name": "Sports fans in the US",
-          "description": "Subscribers interested in sports who live in the US",
-          "tagId": 1,
-          "tag": {
-            "id": 1,
-            "name": "Sports",
-            "description": "Subscribers interested in sports",
-            "subscriberIds": [1, 2],
-            "segmentCriteriaIds": [1]
-          },
-          "subscribers": [
-            {
-              "id": 1,
-              "email": "john.doe@example.com",
-              "firstName": "John",
-              "lastName": "Doe",
-              "country": "United States",
-              "gender": 0,
-              "dateOfBirth": "1980-01-01T00:00:00",
-              "optIn": true,
-              "tagId": 1
-            },
-            {
-              "id": 2,
-              "email": "jane.doe@example.com",
-              "firstName": "Jane",
-              "lastName": "Doe",
-              "country": "Canada",
-              "gender": 1,
-              "dateOfBirth": "1985-01-01T00:00:00",
-              "optIn": true,
-              "tagId": 1
-            }
-          ],
-          "segmentCriteriaIds": [1],
-          "emailMessageIds": [1],
-          "emailMessages": [
-            {
-              "id": 1,
-              "subscriberSegmentId": 1,
-              "sendDate": "2023-05-15T00:00:00",
-              "subject": "Get ready for the playoffs!",
-              "body": "Dear sports fans, get ready for the playoffs with our latest offers."
-            }
-          ]
-        }
-      ],
-      "emailMessages": [
-        {
-          "id": 1,
-          "subscriberSegmentId": 1,
-          "sendDate": "2023-05-15T00:00:00",
-          "subject": "Get ready for the playoffs!",
-          "body": "Dear sports fans, get ready for the playoffs with our latest offers."
-        }
-      ]
+      "Id": 1,
+      "Name": "New Subscribers",
+      "SubscriberIdsCsv": "1,2",
+      "TagIdsCsv": "2"
+    },
+    {
+      "Id": 2,
+      "Name": "VIP Subscribers",
+      "SubscriberIdsCsv": "1",
+      "TagIdsCsv": "1"
+    }
+  ],
+  "EmailMessages": [
+    {
+      "Id": 1,
+      "Subject": "Welcome to our newsletter",
+      "Body": "Dear {FirstName},\n\nThank you for subscribing to our newsletter. We will send you regular updates on our latest products and promotions.\n\nBest regards,\n\nThe Marketing Team"
+    },
+    {
+      "Id": 2,
+      "Subject": "Exclusive offer for VIP members",
+      "Body": "Dear {FirstName},\n\nAs a valued VIP member, we would like to offer you an exclusive discount on our latest product line. This offer is only available to VIP members like you, so act now and save!\n\nBest regards,\n\nThe Marketing Team"
     }
   ]
 }

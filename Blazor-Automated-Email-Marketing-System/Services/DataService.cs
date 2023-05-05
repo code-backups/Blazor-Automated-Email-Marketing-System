@@ -1,108 +1,106 @@
 ﻿using Blazor_Automated_Email_Marketing_System.dbContext;
+using Blazor_Automated_Email_Marketing_System.Models;
 using Microsoft.EntityFrameworkCore;
 
-public class DataService
+namespace Blazor_Automated_Email_Marketing_System.Services
 {
-    private readonly AppDbContext _databaseContext;
-
-    public DataService(AppDbContext databaseContext)
+    public class DataService
     {
-        _databaseContext = databaseContext;
-    }
+        private readonly AppDbContext _context;
 
-    // Create Campaign
-    public async Task<Campaign> CreateCampaign(Campaign campaign)
-    {
-        if (campaign == null) throw new ArgumentNullException(nameof(campaign));
-
-        // Check each field for null
-        var newCampaign = new Campaign
+        public DataService(AppDbContext context)
         {
-            Name = campaign.Name ?? throw new ArgumentNullException(nameof(campaign.Name)),
-            Description = campaign.Description ?? throw new ArgumentNullException(nameof(campaign.Description)),
-            SendDate = campaign.SendDate != DateTime.MinValue
-                ? campaign.SendDate
-                : throw new ArgumentNullException(nameof(campaign.SendDate)),
-            SubscriberSegmentIds = campaign.SubscriberSegmentIds ?? Array.Empty<int>(),
-            EmailMessageIds = campaign.EmailMessageIds ?? Array.Empty<int>()
-        };
+            _context = context;
+        }
 
-        await _databaseContext.Campaigns.AddAsync(newCampaign);
-        await _databaseContext.SaveChangesAsync();
-        return newCampaign;
-    }
-
-    // Create Subscriber
-    public async Task<Subscriber> CreateSubscriber(Subscriber subscriber)
-    {
-        await _databaseContext.Subscribers.AddAsync(subscriber);
-        await _databaseContext.SaveChangesAsync();
-        return subscriber;
-    }
-
-    // Create Segment
-    public async Task<SubscriberSegment> CreateSegment(SubscriberSegment subscriberSegment)
-    {
-        if (subscriberSegment == null) throw new ArgumentNullException(nameof(subscriberSegment));
-
-        var newSegment = new SubscriberSegment
+        // Subscriber methods
+        public async Task<List<Subscriber>> GetAllSubscribers()
         {
-            Name = subscriberSegment.Name ?? throw new ArgumentNullException(nameof(subscriberSegment.Name)),
-            Description = subscriberSegment.Description ??
-                          throw new ArgumentNullException(nameof(subscriberSegment.Description))
-        };
+            return await _context.Subscribers.ToListAsync();
+        }
 
-        if (subscriberSegment.SegmentCriteriaIds != null && subscriberSegment.SegmentCriteriaIds.Length > 0)
-            newSegment.SegmentCriteriaIds = subscriberSegment.SegmentCriteriaIds;
-        else
-            throw new ArgumentNullException(nameof(subscriberSegment.SegmentCriteriaIds));
+        public async Task<Subscriber> GetSubscriberByEmail(string email)
+        {
+            return await _context.Subscribers.FirstOrDefaultAsync(s => s.Email == email);
+        }
 
-        if (subscriberSegment.SubscriberIds != null && subscriberSegment.SubscriberIds.Length > 0)
-            newSegment.SubscriberIds = subscriberSegment.SubscriberIds;
-        else
-            throw new ArgumentNullException(nameof(subscriberSegment.SubscriberIds));
+        public async Task<Subscriber> CreateSubscriber(Subscriber subscriber)
+        {
+            _context.Subscribers.Add(subscriber);
+            await _context.SaveChangesAsync();
+            return subscriber;
+        }
 
-        await _databaseContext.SubscriberSegments.AddAsync(newSegment);
-        await _databaseContext.SaveChangesAsync();
-        return newSegment;
+        // Campaign methods
+        public async Task<List<Campaign>> GetAllCampaigns()
+        {
+            return await _context.Campaigns.ToListAsync();
+        }
+
+        public async Task<Campaign> GetCampaignByName(string name)
+        {
+            return await _context.Campaigns.FirstOrDefaultAsync(c => c.Name == name);
+        }
+
+        public async Task<Campaign> CreateCampaign(Campaign campaign)
+        {
+            _context.Campaigns.Add(campaign);
+            await _context.SaveChangesAsync();
+            return campaign;
+        }
+
+        // Tag methods
+        public async Task<List<Tag>> GetAllTags()
+        {
+            return await _context.Tags.ToListAsync();
+        }
+
+        public async Task<Tag> GetTagByName(string name)
+        {
+            return await _context.Tags.FirstOrDefaultAsync(t => t.Name == name);
+        }
+
+        public async Task<Tag> CreateTag(Tag tag)
+        {
+            _context.Tags.Add(tag);
+            await _context.SaveChangesAsync();
+            return tag;
+        }
+
+        // Subscriber Segment methods
+        public async Task<List<Segment>> GetAllSubscriberSegments()
+        {
+            return await _context.SubscriberSegments.ToListAsync();
+        }
+
+        public async Task<Segment> GetSegmentByName(string name)
+        {
+            return await _context.SubscriberSegments.FirstOrDefaultAsync(s => s.Name == name);
+        }
+
+        public async Task<Segment> CreateSubscriberSegment(Segment segment)
+        {
+            _context.SubscriberSegments.Add(segment);
+            await _context.SaveChangesAsync();
+            return segment;
+        }
+
+        // Email Message methods
+        public async Task<List<EmailMessage>> GetAllEmailMessages()
+        {
+            return await _context.EmailMessages.ToListAsync();
+        }
+
+        public async Task<EmailMessage> GetEmailMessageBySubject(string subject)
+        {
+            return await _context.EmailMessages.FirstOrDefaultAsync(e => e.Subject == subject);
+        }
+
+        public async Task<EmailMessage> CreateEmailMessage(EmailMessage emailMessage)
+        {
+            _context.EmailMessages.Add(emailMessage);
+            await _context.SaveChangesAsync();
+            return emailMessage;
+        }
     }
-
-    // Create Email Message
-    public async Task<EmailMessage> CreateEmail(EmailMessage emailMessage)
-    {
-        await _databaseContext.EmailMessages.AddAsync(emailMessage);
-        await _databaseContext.SaveChangesAsync();
-        return emailMessage;
-    }
-
-    // Get Segment by SegmentId
-    public async Task<SubscriberSegment> GetSegmentById(int? segmentId)
-    {
-        return await _databaseContext.SubscriberSegments.FindAsync(segmentId);
-    }
-
-    // Get EmailMessage by EmailMessageId
-    public async Task<EmailMessage> GetEmailById(int emailMessageId)
-    {
-        return await _databaseContext.EmailMessages.FindAsync(emailMessageId);
-    }
-
-    // Get all Campaigns
-    public async Task<List<Campaign>> GetAllCampaigns()
-    {
-        return await _databaseContext.Campaigns.ToListAsync();
-    }
-
-    // Get all SubscriberSegments
-    public async Task<List<SubscriberSegment>> GetAllSegments()
-    {
-        return await _databaseContext.SubscriberSegments.ToListAsync();
-    }
-
-    // Get all EmailMessages
-    public async Task<List<EmailMessage>> GetAllEmailMessages()
-    {
-        return await _databaseContext.EmailMessages.ToListAsync();
-    }
-
 }
