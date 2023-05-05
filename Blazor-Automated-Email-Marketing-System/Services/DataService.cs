@@ -21,7 +21,7 @@ namespace Blazor_Automated_Email_Marketing_System.Services
 
         public async Task<Subscriber> GetSubscriberByEmail(string email)
         {
-            return await _context.Subscribers.FirstOrDefaultAsync(s => s.Email == email);
+            return await _context.Subscribers.FirstOrDefaultAsync(s => s.EmailAddress == email);
         }
 
         public async Task<Subscriber> CreateSubscriber(Subscriber subscriber)
@@ -70,17 +70,17 @@ namespace Blazor_Automated_Email_Marketing_System.Services
         // Subscriber Segment methods
         public async Task<List<Segment>> GetAllSubscriberSegments()
         {
-            return await _context.SubscriberSegments.ToListAsync();
+            return await _context.Segments.ToListAsync();
         }
 
         public async Task<Segment> GetSegmentByName(string name)
         {
-            return await _context.SubscriberSegments.FirstOrDefaultAsync(s => s.Name == name);
+            return await _context.Segments.FirstOrDefaultAsync(s => s.Name == name);
         }
 
         public async Task<Segment> CreateSubscriberSegment(Segment segment)
         {
-            _context.SubscriberSegments.Add(segment);
+            _context.Segments.Add(segment);
             await _context.SaveChangesAsync();
             return segment;
         }

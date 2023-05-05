@@ -42,7 +42,7 @@
             {
                 foreach (var subscriber in subscribers)
                 {
-                    var existingSubscriber = await DataService.GetSubscriberByEmail(subscriber.Email);
+                    var existingSubscriber = await DataService.GetSubscriberByEmail(subscriber.EmailAddress);
                     if (existingSubscriber == null)
                     {
                         await DataService.CreateSubscriber(subscriber);
