@@ -2,21 +2,183 @@
   "Subscribers": [
     {
       "Id": 1,
-      "Email": "john.doe@example.com",
-      "FirstName": "John",
-      "LastName": "Doe",
-      "Country": "USA",
+      "Email": "sean.murphy@false.domain",
+      "FirstName": "Sean",
+      "LastName": "Murphy",
+      "Country": "Ireland",
       "DateOfBirth": "1990-01-01T00:00:00",
       "SegmentIdsCsv": "1,2"
     },
     {
       "Id": 2,
-      "Email": "jane.doe@example.com",
-      "FirstName": "Jane",
-      "LastName": "Doe",
-      "Country": "EU",
+      "Email": "ciara.ryan@false.domain",
+      "FirstName": "Ciara",
+      "LastName": "Ryan",
+      "Country": "Ireland",
       "DateOfBirth": "1992-03-15T00:00:00",
       "SegmentIdsCsv": "1"
+    },
+    {
+      "Id": 3,
+      "Email": "david.moran@false.domain",
+      "FirstName": "David",
+      "LastName": "Moran",
+      "Country": "Ireland",
+      "DateOfBirth": "1985-05-20T00:00:00",
+      "SegmentIdsCsv": "3"
+    },
+    {
+      "Id": 4,
+      "Email": "sinead.kelly@false.domain",
+      "FirstName": "Sinead",
+      "LastName": "Kelly",
+      "Country": "Ireland",
+      "DateOfBirth": "1994-09-12T00:00:00",
+      "SegmentIdsCsv": "1,2"
+    },
+    {
+      "Id": 5,
+      "Email": "dylan.thomas@false.domain",
+      "FirstName": "Dylan",
+      "LastName": "Thomas",
+      "Country": "Ireland",
+      "DateOfBirth": "1988-11-05T00:00:00",
+      "SegmentIdsCsv": "2"
+    },
+    {
+      "Id": 6,
+      "Email": "maeve.connors@false.domain",
+      "FirstName": "Maeve",
+      "LastName": "Connors",
+      "Country": "Ireland",
+      "DateOfBirth": "1996-02-28T00:00:00",
+      "SegmentIdsCsv": "1"
+    },
+    {
+      "Id": 7,
+      "Email": "patrick.fitzgerald@false.domain",
+      "FirstName": "Patrick",
+      "LastName": "Fitzgerald",
+      "Country": "Ireland",
+      "DateOfBirth": "1980-07-07T00:00:00",
+      "SegmentIdsCsv": "2"
+    },
+    {
+      "Id": 8,
+      "Email": "clodagh.shaw@false.domain",
+      "FirstName": "Clodagh",
+      "LastName": "Shaw",
+      "Country": "Ireland",
+      "DateOfBirth": "1991-10-18T00:00:00",
+      "SegmentIdsCsv": "3"
+    },
+    {
+      "Id": 9,
+      "Email": "colm.manning@false.domain",
+      "FirstName": "Colm",
+      "LastName": "Manning",
+      "Country": "Ireland",
+      "DateOfBirth": "1995-04-30T00:00:00",
+      "SegmentIdsCsv": "1"
+    },
+    {
+      "Id": 10,
+      "Email": "orlaith.kelly@false.domain",
+      "FirstName": "Orlaith",
+      "LastName": "Kelly",
+      "Country": "Ireland",
+      "DateOfBirth": "1999-12-24T00:00:00",
+      "SegmentIdsCsv": "2"
+    },
+    {
+      "Id": 11,
+      "Email": "rory.gallagher@false.domain",
+      "FirstName": "Rory",
+      "LastName": "Gallagher",
+      "Country": "Ireland",
+      "DateOfBirth": "1987-11-15T00:00:00",
+      "SegmentIdsCsv": "3"
+    },
+    {
+      "Id": 12,
+      "Email": "rachel.vradaker@false.domain",
+      "FirstName": "Rachel",
+      "LastName": "Vradaker",
+      "Country": "Ireland",
+      "DateOfBirth": "1993-06-03T00:00:00",
+      "SegmentIdsCsv": "1,2"
+    },
+    {
+      "Id": 13,
+      "Email": "conor.kavanagh@false.domain",
+      "FirstName": "Conor",
+      "LastName": "Kavanagh",
+      "Country": "Ireland",
+      "DateOfBirth": "1982-09-10T00:00:00",
+      "SegmentIdsCsv": "1"
+    },
+    {
+      "Id": 14,
+      "Email": "lisa.kelly@false.domain",
+      "FirstName": "Lisa",
+      "LastName": "Kelly",
+      "Country": "Ireland",
+      "DateOfBirth": "1997-05-29T00:00:00",
+      "SegmentIdsCsv": "2"
+    },
+    {
+      "Id": 15,
+      "Email": "kevin.mcgee@false.domain",
+      "FirstName": "Kevin",
+      "LastName": "McGee",
+      "Country": "Ireland",
+      "DateOfBirth": "1989-08-22T00:00:00",
+      "SegmentIdsCsv": "3"
+    },
+    {
+      "Id": 16,
+      "Email": "siobhan.fitzpatrick@false.domain",
+      "FirstName": "Siobhan",
+      "LastName": "Fitzpatrick",
+      "Country": "Ireland",
+      "DateOfBirth": "1991-01-16T00:00:00",
+      "SegmentIdsCsv": "1"
+    },
+    {
+      "Id": 17,
+      "Email": "peter.ryan@false.domain",
+      "FirstName": "Peter",
+      "LastName": "Ryan",
+      "Country": "Ireland",
+      "DateOfBirth": "1983-04-09T00:00:00",
+      "SegmentIdsCsv": "2"
+    },
+    {
+      "Id": 18,
+      "Email": "ellen.moran@false.domain",
+      "FirstName": "Ellen",
+      "LastName": "Moran",
+      "Country": "Ireland",
+      "DateOfBirth": "1994-11-25T00:00:00",
+      "SegmentIdsCsv": "3"
+    },
+    {
+      "Id": 19,
+      "Email": "cian.breen@false.domain",
+      "FirstName": "Cian",
+      "LastName": "Breen",
+      "Country": "Ireland",
+      "DateOfBirth": "1998-07-19T00:00:00",
+      "SegmentIdsCsv": "1"
+    },
+    {
+      "Id": 20,
+      "Email": "aoife.collins@false.domain",
+      "FirstName": "Aoife",
+      "LastName": "Collins",
+      "Country": "Ireland",
+      "DateOfBirth": "1986-02-10T00:00:00",
+      "SegmentIdsCsv": "2,3"
     }
   ],
   "Campaigns": [
@@ -33,6 +195,20 @@
       "Description": "Campaign for VIP subscribers",
       "SegmentIdsCsv": "2",
       "EmailMessageIdsCsv": "2"
+    },
+    {
+      "Id": 3,
+      "Name": "Birthday Campaign",
+      "Description": "Campaign for subscribers with birthdays this month",
+      "SegmentIdsCsv": "3",
+      "EmailMessageIdsCsv": "3"
+    },
+    {
+      "Id": 4,
+      "Name": "Discount Campaign",
+      "Description": "Campaign with a discount offer for all subscribers",
+      "SegmentIdsCsv": "1,2,3",
+      "EmailMessageIdsCsv": "4"
     }
   ],
   "Tags": [
@@ -43,32 +219,120 @@
     {
       "Id": 2,
       "Name": "New"
+    },
+    {
+      "Id": 3,
+      "Name": "Birthday"
+    },
+    {
+      "Id": 4,
+      "Name": "Discount"
+    },
+    {
+      "Id": 5,
+      "Name": "Summer"
+    },
+    {
+      "Id": 6,
+      "Name": "Winter"
+    },
+    {
+      "Id": 7,
+      "Name": "Autumn"
+    },
+    {
+      "Id": 8,
+      "Name": "Spring"
+    },
+    {
+      "Id": 9,
+      "Name": "Christmas"
+    },
+    {
+      "Id": 10,
+      "Name": "Halloween"
     }
   ],
   "Segments": [
     {
       "Id": 1,
       "Name": "New Subscribers",
-      "SubscriberIdsCsv": "1,2",
+      "SubscriberIdsCsv": "1,2,4,6,9,19",
       "TagIdsCsv": "2"
     },
     {
       "Id": 2,
       "Name": "VIP Subscribers",
-      "SubscriberIdsCsv": "1",
+      "SubscriberIdsCsv": "1,5,7,10,17,20",
       "TagIdsCsv": "1"
+    },
+    {
+      "Id": 3,
+      "Name": "Birthday Subscribers",
+      "SubscriberIdsCsv": "3,11,18",
+      "TagIdsCsv": "3"
     }
   ],
   "EmailMessages": [
     {
       "Id": 1,
       "Subject": "Welcome to our newsletter",
-      "Body": "Dear {FirstName},\n\nThank you for subscribing to our newsletter. We will send you regular updates on our latest products and promotions.\n\nBest regards,\n\nThe Marketing Team"
+      "Body": "Dear {FirstName},\n\nThank you for subscribing. We will send you regular updates on our latest products and promotions.\n\nRegards,\n\nMarketing"
     },
     {
       "Id": 2,
       "Subject": "Exclusive offer for VIP members",
-      "Body": "Dear {FirstName},\n\nAs a valued VIP member, we would like to offer you an exclusive discount on our latest product line. This offer is only available to VIP members like you, so act now and save!\n\nBest regards,\n\nThe Marketing Team"
+      "Body": "Dear {FirstName},\n\nAs a valued VIP member, we would like to offer you an exclusive discount on our latest products. This offer is only available to VIP members like you!\n\nRegards,\n\nMarketing"
+    },
+    {
+      "Id": 3,
+      "Subject": "Happy Birthday!",
+      "Body": "Dear {FirstName},\n\nHappy Birthday! As a gift, we would like to offer you a discount on your next purchase!\n\nRegards,\n\nMarketing"
+    },
+    {
+      "Id": 4,
+      "Subject": "Limited time offer",
+      "Body": "Dear {FirstName},\n\nFor a limited time, we are offering a discount on all products in our store!\n\nRegards,\n\nMarketing"
+    },
+    {
+      "Id": 5,
+      "Subject": "New product launch",
+      "Body": "Dear {FirstName},\n\nOur latest product lines are now available in our store, so be sure to check them out!\n\nRegards,\n\nMarketing"
+    },
+    {
+      "Id": 6,
+      "Subject": "Winter sale",
+      "Body": "Dear {FirstName},\n\nWinter is here, and so is our winter sale! We are offering huge discounts on all winter clothing and accessories!\n\nRegards,\n\nMarketing"
+    },
+    {
+      "Id": 7,
+      "Subject": "Spring collection now available",
+      "Body": "Dear {FirstName},\n\nSpring is finally here, and so is our new spring collection!\n\nRegards,\n\nMarketing"
+    },
+    {
+      "Id": 8,
+      "Subject": "Autumn fashion trends",
+      "Body": "Dear {FirstName},\n\nAutumn is here, and so are the latest Autumn fashion trends!\n\nRegards,\n\nMarketing"
+    },
+    {
+      "Id": 9,
+      "Subject": "Christmas sale",
+      "Body": "Dear {FirstName},\n\nIt's our Christmas sale! We are offering huge discounts on all Christmas decorations and gifts!\n\nRegards,\n\nMarketing"
+    },
+    {
+      "Id": 10,
+      "Subject": "Halloween party ideas",
+      "Body": "Dear {FirstName},\n\nFrom spooky decorations to treats, we have everything you need to make your Halloween success!\n\nRegards,\n\nMarketing"
+    },
+    {
+      "Id": 11,
+      "Subject": "Summer holiday",
+      "Body": "Dear {FirstName},\n\nSummer is here! Gear up for you holidays with out sunshine products!\n\nRegards,\n\nMarketing"
+    },
+    {
+      "Id": 12,
+      "Subject": "New year",
+      "Body": "Dear {FirstName},\n\nWe have everything you need to make this year your best ever!\n\nRegards,\n\nMarketing"
     }
   ]
 }
