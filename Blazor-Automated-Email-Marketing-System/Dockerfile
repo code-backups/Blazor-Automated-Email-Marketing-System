@@ -2,7 +2,8 @@
 # Depending on the operating system of the host machines(s) that will build or run the containers, the image specified in the FROM statement may need to be changed.
 # For more information, please see https://aka.ms/containercompat
 
-FROM blazor-automated-email-marketing-system:v1.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
+#FROM blazor-automated-email-marketing-system:v1.0 AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443

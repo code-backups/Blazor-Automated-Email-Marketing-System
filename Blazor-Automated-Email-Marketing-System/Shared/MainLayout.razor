@@ -9,7 +9,7 @@
 
         <RadzenLayout Style="grid-template-areas: 'rz-sidebar rz-header' 'rz-sidebar rz-body'; height: 100%;">
             <RadzenHeader>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="10">
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="5">
                     <RadzenSidebarToggle Click="@(() => _sidebar2Expanded = !_sidebar2Expanded)"/>
                     <RadzenLabel Text="@Title"/>
                 </RadzenStack>
@@ -17,17 +17,17 @@
             <RadzenSidebar @bind-Expanded="@_sidebar2Expanded">
 
                 <RadzenPanelMenu>
-                    <RadzenPanelMenuItem Text="Dash" Icon="home" Path="/"/>
-                    <RadzenPanelMenuItem Text="Features" Icon="folder">
-                        <RadzenPanelMenuItem Text="Feature 1" Path="Features/1"/>
-                        <RadzenPanelMenuItem Text="Feature 2" Path="Features/2"/>
-                        <RadzenPanelMenuItem Text="Feature 3" Path="Features/3"/>
-                        <RadzenPanelMenuItem Text="Feature 4" Path="Features/4"/>
-                        <RadzenPanelMenuItem Text="Feature 5" Path="Features/5"/>
-                        <RadzenPanelMenuItem Text="Feature 6" Path="Features/6"/>
-                        <RadzenPanelMenuItem Text="Feature 7" Path="Features/7"/>
-                        <RadzenPanelMenuItem Text="Feature 8" Path="Features/8"/>
-                        <RadzenPanelMenuItem Text="Feature 9" Path="Features/9"/>
+                    <RadzenPanelMenuItem Text="Dash" Icon="home" Path="/" />
+                    <RadzenPanelMenuItem Text="App Features" Icon="folder">
+                        <RadzenPanelMenuItem Text="1.Campaign Automation" Path="Features/01" />
+                        <RadzenPanelMenuItem Icon="folder" Text="2.Personalisation" Path="Features/02" />
+                        <RadzenPanelMenuItem Icon="folder" Text="3.Segmentation" Path="Features/03" />
+                        <RadzenPanelMenuItem Text="4.Analytics" Path="Features/04" />
+                        <RadzenPanelMenuItem Text="5.Mobile Friendliness" Path="Features/05" />
+                        <RadzenPanelMenuItem Text="6.Dynamic Content" Path="Features/06" />
+                        <RadzenPanelMenuItem Text="7.Integrations" Path="Features/07" />
+                        <RadzenPanelMenuItem Icon="folder" Text="8.A/B Testing" Path="Features/08" />
+                        <RadzenPanelMenuItem Text="9.Drag-and-Drop Editor" Path="Features/09" />
                     </RadzenPanelMenuItem>
                 </RadzenPanelMenu>
 
@@ -51,21 +51,21 @@
 
 @code
 {
-        private const string Title = "AutoEMS";
+    private const string Title = "AutoEMS";
     private bool _sidebar2Expanded;
-    private Timer _timer = null!;
+    //private Timer _timer = null!;
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
-        _timer = new Timer(2000);
-        _timer.Elapsed += async (sender, args) =>
-        {
-            _sidebar2Expanded = false;
-            await InvokeAsync(StateHasChanged);
-        };
-        _timer.AutoReset = false;
-        _timer.Enabled = true;
+        //_timer = new Timer(2000);
+        //_timer.Elapsed += async (sender, args) =>
+        //{
+        //    _sidebar2Expanded = false;
+        //    await InvokeAsync(StateHasChanged);
+        //};
+        //_timer.AutoReset = false;
+        //_timer.Enabled = true;
     }
 }

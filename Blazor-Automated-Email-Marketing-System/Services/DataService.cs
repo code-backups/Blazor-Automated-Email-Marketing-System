@@ -68,7 +68,7 @@ namespace Blazor_Automated_Email_Marketing_System.Services
         }
 
         // Subscriber Segment methods
-        public async Task<List<Segment>> GetAllSubscriberSegments()
+        public async Task<List<Segment>> GetAllSegments()
         {
             return await _context.Segments.ToListAsync();
         }

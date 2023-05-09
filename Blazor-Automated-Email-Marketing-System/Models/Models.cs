@@ -1,5 +1,8 @@
 ﻿namespace Blazor_Automated_Email_Marketing_System.Models
 {
+    // This data model is simplified for research purposes and does not adhere to best practices
+    // such as XML comments, having appropriate data structures for relating entities or using annotations for validation.
+
     public class Subscriber
     {
         public int Id { get; set; }

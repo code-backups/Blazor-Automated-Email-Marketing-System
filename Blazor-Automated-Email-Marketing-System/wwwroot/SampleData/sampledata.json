@@ -216,10 +216,32 @@
       "Id": 14,
       "Name": "Interest: Irish Culture"
     },
+      
     {
-      "Id": 15,
-      "Name": "Interest: Humor"
+      "Id": 16,
+      "Name": "Funky Hat"
+    },
+    {
+      "Id": 17,
+      "Name": "Posh Bag"
+    },
+    {
+      "Id": 18,
+      "Name": "Shamrock T-Shirt"
+    },
+    {
+      "Id": 19,
+      "Name": "Leprechaun Shoes"
+    },
+    {
+      "Id": 20,
+      "Name": "Irish Flag"
+    },
+    {
+      "Id": 21,
+      "Name": "AllSorts Supplies"
     }
+
   ],
   "EmailMessages": [
     {
