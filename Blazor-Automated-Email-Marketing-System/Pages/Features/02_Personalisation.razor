@@ -1,0 +1,54 @@
+﻿@page "/Features/02"
+@inject DataService DataService
+@using Blazor_Automated_Email_Marketing_System.Models
+@using Blazor_Automated_Email_Marketing_System.Services
+
+<h1>Requirement 2 - Personalisation</h1>
+
+<label for="subscriber-select">Select a subscriber:</label>
+<select id="subscriber-select" @bind="@SelectedSubscriberId">
+    @foreach (var subscriber in _subscribers)
+    {
+        <option value="@subscriber.Id">@subscriber.EmailAddress</option>
+    }
+</select>
+
+<div>
+    <h3>Email Message Template</h3>
+    <p>@_emailMessageTemplate.Body</p>
+</div>
+
+<div>
+    <h3>Personalised Email Message</h3>
+    <p>@PersonalisedEmailMessageBody</p>
+</div>
+
+@code {
+    private List<Subscriber> _subscribers;
+    private List<EmailMessage> _emailMessages;
+    private int SelectedSubscriberId { get; set; }
+    private EmailMessage _emailMessageTemplate;
+    private string PersonalisedEmailMessageBody { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _subscribers = await DataService.GetAllSubscribers();
+        _emailMessages = await DataService.GetAllEmailMessages();
+        SelectedSubscriberId = _subscribers.FirstOrDefault()?.Id ?? 0;
+        _emailMessageTemplate = _emailMessages.FirstOrDefault();
+        PersonaliseEmailMessage();
+    }
+
+    private void PersonaliseEmailMessage()
+    {
+        var selectedSubscriber = _subscribers.FirstOrDefault(s => s.Id == SelectedSubscriberId);
+        if (selectedSubscriber != null && _emailMessageTemplate != null)
+        {
+            PersonalisedEmailMessageBody = _emailMessageTemplate.Body
+                .Replace("{{FirstName}}", selectedSubscriber.FirstName)
+                .Replace("{{LastName}}", selectedSubscriber.LastName)
+                .Replace("{{EmailAddress}}", selectedSubscriber.EmailAddress);
+        }
+    }
+}
+
