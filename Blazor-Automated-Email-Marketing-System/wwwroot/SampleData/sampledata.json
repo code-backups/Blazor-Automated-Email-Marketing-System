@@ -246,27 +246,23 @@
   "EmailMessages": [
     {
       "Id": 1,
-      "Subject": "Don't Miss Out on Our Exclusive Sale!",
-      "Body":
-        "Dear {{FirstName}},\n\nWe wanted to let you know about our exclusive sale for our valued subscribers. Get {{DiscountPercentage}}% off all purchases with the code {{DiscountCode}}. Our latest collection includes {{Product1}}, {{Product2}}, and {{Product3}}, perfect for {{Occasion}}. Order now to take advantage of this limited-time offer.\n\nKind regards,\nThe {{CompanyName}} Team"
+      "Subject": "{{FirstName}} Don't Miss Out on Our Exclusive Sale!",
+      "Body": "Dear {{FirstName}} {{LastName}},\n\nWe wanted to let you know about our exclusive sale for our valued subscribers. Get huge reductions off all purchases with the code 123456. Our latest collection includes {{Product1}}, {{Product2}} and {{Product3}}. Order now to take advantage of this limited-time offer.\n\nKind regards,\nThe {{CompanyName}} Team"
     },
     {
       "Id": 2,
-      "Subject": "Celebrate St. Patrick's Day with Our Special Collection",
-      "Body":
-        "Hi {{FirstName}},\n\nWe are excited to offer our special St. Patrick's Day collection, featuring {{Product1}}, {{Product2}}, and {{Product3}}. Show off your Irish pride with these fun and festive items. Order now to ensure delivery before the holiday!\n\nBest wishes,\nThe {{CompanyName}} Team"
+      "Subject": "{{FirstName}} Celebrate St. Patrick's Day with Our Special Collection",
+      "Body": "Hi {{FirstName}},\n\nWe are excited to offer our special St. Patrick's Day collection featuring {{Product1}}, {{Product2}} and {{Product3}}. Show off your Irish pride with these fun and festive items. Order now to ensure delivery before the holiday!\n\nBest wishes,\nThe {{CompanyName}} Team"
     },
     {
       "Id": 3,
-      "Subject": "New Season, New Styles: Check Out Our Latest Collection",
-      "Body":
-        "Dear {{FirstName}},\n\nWe are thrilled to announce our latest collection, featuring {{Product1}}, {{Product2}}, and {{Product3}}. These stylish new pieces are perfect for the upcoming season, and we know you'll love them as much as we do. Order now and be the first to rock these must-have items!\n\nBest regards,\nThe {{CompanyName}} Team"
+      "Subject": "New Season, New Styles: Check Out Our Latest Collection {{FirstName}}",
+      "Body": "Dear {{FirstName}},\n\nWe are thrilled to announce our latest collection, featuring {{Product1}}, {{Product2}}, and {{Product3}}. These stylish new pieces are perfect for the upcoming season, and we know you'll love them as much as we do. Order now and be the first to rock these must-have items!\n\nBest regards,\nThe {{CompanyName}} Team"
     },
     {
       "Id": 4,
-      "Subject": "Discover the Latest Tech Innovations",
-      "Body":
-        "Hi {{FirstName}},\n\nWe wanted to share our latest tech innovations with you, including {{Product1}}, {{Product2}}, and {{Product3}}. These cutting-edge products will take your tech game to the next level. Order now and experience the future of technology!\n\nThanks for your support,\nThe {{CompanyName}} Team"
+      "Subject": "{{FirstName}}, Discover the Latest Tech Innovations",
+      "Body": "Hi {{FirstName}},\n\nWe wanted to share our latest tech innovations with you, including {{Product1}}, {{Product2}}, and {{Product3}}. These cutting-edge products will take your tech game to the next level. Order now and experience the future of technology!\n\nThanks for your support,\nThe {{CompanyName}} Team"
     },
     {
       "Id": 5,
@@ -276,9 +272,8 @@
     },
     {
       "Id": 6,
-      "Subject": "Get Your Laugh On with Our Humorous Collection",
-      "Body":
-        "Hi {{FirstName}},\n\nWe all need a good laugh sometimes, and our humorous collection is just the thing to put a smile on your face. Featuring {{Product1}}, {{Product2}}, and {{Product3}}, these funny items will brighten up your day. Order now and let the chuckles begin!\n\nThanks for your support,\nThe {{CompanyName}} Team"
+      "Subject": "{{FirstName}}, Get Your Laugh On with Our Humorous Collection",
+      "Body": "Hi {{FirstName}},\n\nWe all need a good laugh sometimes and our humorous collection is just the thing to put a smile on your face. Featuring {{Product1}}, {{Product2}}, and {{Product3}}, these funny items will brighten up your day. Order now and let the chuckles begin!\n\nThanks for your support,\nThe {{CompanyName}} Team"
     }
   ]
 }
