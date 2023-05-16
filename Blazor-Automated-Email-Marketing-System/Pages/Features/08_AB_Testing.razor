@@ -8,7 +8,7 @@
 
 
 @code{
-    private DataService? _dataService;
+    public DataService? _dataService;
 
 
     public void SendABTestEmails(Campaign campaign)
@@ -18,19 +18,19 @@
         var allEmailMessages = _dataService.GetAllEmailMessages().Result;
 
         // Get the targeted Segment from the Campaign
-        var targetSegmentIds = campaign.SegmentIdsCsv.Split(',').Select(int.Parse).ToList();
+        var targetSegmentIds = campaign.SegmentIdsCsv!.Split(',').Select(int.Parse).ToList();
         var chosenSegmentId = targetSegmentIds.FirstOrDefault();
         var chosenSegment = allSegments.FirstOrDefault(segment => segment.Id == chosenSegmentId);
 
         // Get the subscribers of the targeted Segment
         Debug.Assert(chosenSegment != null, nameof(chosenSegment) + " != null");
-        var targetSubscriberIds = chosenSegment.SubscriberIdsCsv.Split(',').Select(int.Parse).ToList();
-        var targetSubscribers = allSubscribers.Where(subscriber => targetSubscriberIds.Contains(subscriber.Id)).ToList();
+        var targetSubscriberIds = chosenSegment.SubscriberIdsCsv!.Split(',').Select(int.Parse).ToList();
+        var targetSubscribers = allSubscribers!.Where(subscriber => targetSubscriberIds.Contains(subscriber.Id)).ToList();
 
         // Get the email messages for the campaign
-        var emailMessageIds = campaign.EmailMessageIdsCsv.Split(',').Select(int.Parse).ToList();
-        var emailMessageA = allEmailMessages.FirstOrDefault(emailMessage => emailMessage.Id == emailMessageIds[0]);
-        var emailMessageB = allEmailMessages.FirstOrDefault(emailMessage => emailMessage.Id == emailMessageIds[1]);
+        var emailMessageIds = campaign.EmailMessageIdsCsv!.Split(',').Select(int.Parse).ToList();
+        var emailMessageA = allEmailMessages!.FirstOrDefault(emailMessage => emailMessage.Id == emailMessageIds[0]);
+        var emailMessageB = allEmailMessages!.FirstOrDefault(emailMessage => emailMessage.Id == emailMessageIds[1]);
 
         // Split the subscribers into two groups (A and B)
         var groupA = new List<Subscriber>();

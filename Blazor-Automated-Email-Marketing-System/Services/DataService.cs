@@ -14,7 +14,7 @@ namespace Blazor_Automated_Email_Marketing_System.Services
         }
 
         // Subscriber methods
-        public async Task<List<Subscriber>> GetAllSubscribers()
+        public async Task<List<Subscriber>?> GetAllSubscribers()
         {
             return await _context.Subscribers.ToListAsync();
         }
@@ -86,7 +86,7 @@ namespace Blazor_Automated_Email_Marketing_System.Services
         }
 
         // Email Message methods
-        public async Task<List<EmailMessage>> GetAllEmailMessages()
+        public async Task<List<EmailMessage>?> GetAllEmailMessages()
         {
             return await _context.EmailMessages.ToListAsync();
         }
