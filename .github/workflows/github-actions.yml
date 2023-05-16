@@ -12,14 +12,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Clear NuGet cache
+        run: dotnet nuget locals all --clear
+
       - name: Check out repository
         uses: actions/checkout@v2
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '7.0.x'
+
       - name: Install dependencies
         run: dotnet restore ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj
+
       - name: Lint with .NET Analysers
         run: dotnet build ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj --no-restore -c Release -p:TreatWarningsAsErrors=false
 
@@ -30,12 +36,15 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '7.0.x'
+
       - name: Install dependencies
         run: dotnet restore ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj
+
       - name: Run unit tests
         run: dotnet test ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj --no-restore --verbosity normal
 
@@ -46,12 +55,15 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '7.0.x'
+
       - name: Install dependencies
         run: dotnet restore ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj
+
       - name: Run integration tests
         run: dotnet test ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj --filter Category=Integration --no-restore --verbosity normal
 
@@ -62,11 +74,13 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
+
       - name: Log in to Docker Hub
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
       - name: Build and push Docker image
         env:
           VERSION: v1.0.0
