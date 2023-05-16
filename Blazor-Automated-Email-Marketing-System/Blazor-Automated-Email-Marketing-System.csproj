@@ -26,6 +26,8 @@
     </PackageReference>
     <PackageReference Include="xunit" Version="2.4.2" />
     <PackageReference Include="xunit.analyzers" Version="1.1.0" />
+    <!-- workaround - GitHub Actions test runner could not locate Microsoft.TestPlatform.CommunicationUtilities -->
+    <PackageReference Include="Microsoft.TestPlatform" Version="16.11.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,7 +40,7 @@
     <AdditionalFiles Include="stylecop.json" />
   </ItemGroup>
 
-  <!-- stylecop treat warnings are errors ??? -->
+  <!-- stylecop treat warnings as errors -->
   <PropertyGroup>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
