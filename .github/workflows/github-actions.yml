@@ -22,7 +22,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '7.0.x'
+          dotnet-version: '6.0.x'
 
       - name: Install dependencies
         run: dotnet restore ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj
@@ -41,13 +41,13 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '7.0.x'
+          dotnet-version: '6.0.x'
 
       - name: Install dependencies
         run: dotnet restore ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj
 
-      #- name: Run unit tests
-      #  run: dotnet test ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj --no-restore --verbosity normal --logger:"console;verbosity=detailed"
+      - name: Run unit tests
+        run: dotnet test ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj --no-restore --verbosity normal --logger:"console;verbosity=detailed"
 
   test-staging:
     runs-on: ubuntu-latest
@@ -60,7 +60,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '7.0.x'
+          dotnet-version: '6.0.x'
 
       - name: Install dependencies
         run: dotnet restore ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj
