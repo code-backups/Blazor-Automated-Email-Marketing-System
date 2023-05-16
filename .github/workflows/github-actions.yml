@@ -6,6 +6,9 @@ on:
     branches:
       - main
 
+env:
+  MSBUILDDIAGNOSTIC: true
+
 jobs:
 
   lint-csharp-development:
