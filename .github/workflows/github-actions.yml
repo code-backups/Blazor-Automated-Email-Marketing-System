@@ -1,6 +1,7 @@
 name: CI/CD Workflow
-# This defines the workflow name, and sets its trigger as a push to main
+
 on:
+
   push:
     branches:
       - main
@@ -8,8 +9,8 @@ on:
 jobs:
 
   lint-csharp-development:
-# This job is for linting C# code in the development environment. It checks out the repository, sets up the .NET environment, restores dependencies and runs the .NET build command with analysers enabled, treating warnings as errors.
     runs-on: ubuntu-latest
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
@@ -18,14 +19,14 @@ jobs:
         with:
           dotnet-version: '7.0.x'
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet restore ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj
       - name: Lint with .NET Analysers
-        run: dotnet build --no-restore -c Release -p:TreatWarningsAsErrors=true
+        run: dotnet build ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj --no-restore -c Release -p:TreatWarningsAsErrors=true
 
   test-development:
-# This job runs unit tests for the development environment. It checks out the repository, sets up the .NET environment, restores dependencies and runs the dotnet test command to execute unit tests. It also depends on the lint-csharp-development job and will only run if that job completes successfully.
     runs-on: ubuntu-latest
     needs: lint-csharp-development
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
@@ -34,14 +35,14 @@ jobs:
         with:
           dotnet-version: '7.0.x'
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet restore ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj
       - name: Run unit tests
-        run: dotnet test --no-restore --verbosity normal
+        run: dotnet test ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj --no-restore --verbosity normal
 
   test-staging:
-# This job runs integration tests for the staging environment. It checks out the repository, sets up the .NET environment, restores dependencies and runs the dotnet test command with a filter to execute only "Integration" category tests. This job also depends on the test-development job, meaning it will only run if that job completes successfully.
     runs-on: ubuntu-latest
     needs: test-development
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
@@ -50,28 +51,22 @@ jobs:
         with:
           dotnet-version: '7.0.x'
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet restore ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj
       - name: Run integration tests
-        run: dotnet test --filter Category=Integration --no-restore --verbosity normal
+        run: dotnet test ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj --filter Category=Integration --no-restore --verbosity normal
 
   build-and-push:
-# This job defines the build and push to Docker Hub. The job depends on the test-staging job, meaning it will only run if the staging tests have completed successfully.
     runs-on: ubuntu-latest
     needs: test-staging
-    steps:
 
-# This step checks out the repository making it available for later steps in the job.
+    steps:
       - name: Check out repository
         uses: actions/checkout@v2
-
-# This step logs in to Docker Hub using the docker/login-action action. It uses the DOCKER_HUB_USERNAME and DOCKER_HUB_PASSWORD secrets set in the GitHub repository settings, authenticating with Docker Hub.
       - name: Log in to Docker Hub
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-
-# This step builds and pushes the Docker image to Docker Hub. It uses the docker build command to build the Docker image with the specified tag, which includes the Docker Hub username and the semantic version (v1.0.0). The version is set using the VERSION variable in the env section. The docker push command is then used to push the built image to Docker Hub.
       - name: Build and push Docker image
         env:
           VERSION: v1.0.0
