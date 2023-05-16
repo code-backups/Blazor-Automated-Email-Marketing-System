@@ -27,7 +27,7 @@
     <PackageReference Include="xunit" Version="2.4.2" />
     <PackageReference Include="xunit.analyzers" Version="1.1.0" />
     <!-- workaround - GitHub Actions test runner could not locate Microsoft.TestPlatform.CommunicationUtilities -->
-    <PackageReference Include="Microsoft.TestPlatform" Version="16.11.0" />
+    <PackageReference Include="Microsoft.TestPlatform" Version="17.6.0" />
   </ItemGroup>
 
   <ItemGroup>
