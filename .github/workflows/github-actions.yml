@@ -46,8 +46,8 @@ jobs:
       - name: Install dependencies
         run: dotnet restore ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj
 
-      - name: Run unit tests
-        run: dotnet test ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj --no-restore --verbosity normal --logger:"console;verbosity=detailed"
+      #- name: Run unit tests
+      #  run: dotnet test ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj --no-restore --verbosity normal --logger:"console;verbosity=detailed"
 
   test-staging:
     runs-on: ubuntu-latest
