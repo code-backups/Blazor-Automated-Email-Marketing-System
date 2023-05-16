@@ -26,13 +26,13 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var subscriber in subscribers)
+            @foreach (var subscriber in subscribers!)
             {
                 <tr>
                     <td>@subscriber.FirstName</td>
                     <td>@subscriber.LastName</td>
                     <td>@subscriber.EmailAddress</td>
-                    <td>@subscriber.TagIdsCsv.Split(',').Select(tagId => tags.FirstOrDefault(t => t.Id == int.Parse(tagId))?.Name).Where(name => name != null).Aggregate((a, b) => $"{a}, {b}")</td>
+                    <td>@subscriber.TagIdsCsv!.Split(',').Select(tagId => tags.FirstOrDefault(t => t.Id == int.Parse(tagId))?.Name).Where(name => name != null).Aggregate((a, b) => $"{a}, {b}")</td>
                 </tr>
             }
         </tbody>
@@ -41,9 +41,9 @@
 
 @code {
     private List<Segment> segments = new List<Segment>();
-    private List<Subscriber> subscribers = new List<Subscriber>();
+    private List<Subscriber>? subscribers = new List<Subscriber>();
     private List<Tag> tags = new List<Tag>();
-    private Segment selectedSegment = null;
+    private Segment selectedSegment = null!;
 
     protected override async Task OnInitializedAsync()
     {
@@ -54,12 +54,12 @@
 
     private void OnSegmentSelected(ChangeEventArgs e)
     {
-        int segmentId = int.Parse(e.Value.ToString());
-        selectedSegment = segments.FirstOrDefault(segment => segment.Id == segmentId);
+        int segmentId = int.Parse(e.Value!.ToString()!);
+        selectedSegment = segments.FirstOrDefault(segment => segment.Id == segmentId)!;
         if (selectedSegment != null)
         {
-            var subscriberIds = selectedSegment.SubscriberIdsCsv.Split(',').Select(int.Parse);
-            subscribers = subscribers.Where(subscriber => subscriberIds.Contains(subscriber.Id)).ToList();
+            var subscriberIds = selectedSegment.SubscriberIdsCsv!.Split(',').Select(int.Parse);
+            subscribers = subscribers!.Where(subscriber => subscriberIds.Contains(subscriber.Id)).ToList();
         }
         else
         {
