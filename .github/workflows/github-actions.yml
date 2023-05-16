@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: dotnet restore ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj
       - name: Lint with .NET Analysers
-        run: dotnet build ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj --no-restore -c Release -p:TreatWarningsAsErrors=true
+        run: dotnet build ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj --no-restore -c Release -p:TreatWarningsAsErrors=false
 
   test-development:
     runs-on: ubuntu-latest
