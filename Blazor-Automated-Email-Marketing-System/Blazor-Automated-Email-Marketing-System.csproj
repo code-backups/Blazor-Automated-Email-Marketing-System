@@ -7,7 +7,6 @@
     <RootNamespace>Blazor_Automated_Email_Marketing_System</RootNamespace>
     <UserSecretsId>98864609-6f6c-4b4c-8ded-fa3805ef9444</UserSecretsId>
     <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
-    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
     <!-- workaround - do not overwrite xUnit assemblies with test projects local copies -->
     <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
   </PropertyGroup>

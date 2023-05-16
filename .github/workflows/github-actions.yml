@@ -1,7 +1,6 @@
 name: CI/CD Workflow
 
 on:
-
   push:
     branches:
       - main
@@ -10,7 +9,6 @@ env:
   MSBUILDDIAGNOSTIC: true
 
 jobs:
-
   lint-csharp-development:
     runs-on: ubuntu-latest
 
