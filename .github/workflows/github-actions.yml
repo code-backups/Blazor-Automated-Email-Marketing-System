@@ -34,11 +34,11 @@ jobs:
 
       # Install the project dependencies
       - name: Install dependencies
-        run: dotnet restore ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj
+        run: dotnet restore ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj
 
       # Lint the code using .NET Analysers
       - name: Lint with .NET Analysers
-        run: dotnet build ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj --no-restore -c Release -p:TreatWarningsAsErrors=false
+        run: dotnet build ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj --no-restore -c Release -p:TreatWarningsAsErrors=false
 
   # Second job is to run XUnit unit tests in the development environment
   test-development:
@@ -60,11 +60,11 @@ jobs:
 
       # Install the project dependencies
       - name: Install dependencies
-        run: dotnet restore ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj
+        run: dotnet restore ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj
 
       # Run the unit tests
       - name: Run unit tests
-        run: dotnet test ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj --no-restore --verbosity normal --logger:"console;verbosity=detailed"
+        run: dotnet test ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj --no-restore --verbosity normal --logger:"console;verbosity=detailed"
 
   # Third job is to run integration tests in the staging environment
   test-staging:
@@ -94,15 +94,15 @@ jobs:
 
         # Install the project dependencies for the test project
         - name: Install test project dependencies
-          run: dotnet restore "..\..\Blazor-Automated-Email-Marketing-System.Tests\Blazor-Automated-Email-Marketing-System.Tests.csproj"
+          run: dotnet restore "./Blazor-Automated-Email-Marketing-System.Tests/Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.Tests.csproj"
 
         # Restore nuget packages for the main project
         - name: Restore main project nuget packages
-          run: dotnet restore ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj
+          run: dotnet restore ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj
 
         # Run the integration tests
         - name: Run integration tests
-          run: dotnet test "..\..\Blazor-Automated-Email-Marketing-System.Tests\Blazor-Automated-Email-Marketing-System.Tests.csproj" --filter Category=Integration --no-restore --verbosity normal
+          run: dotnet test "./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.Tests/Blazor-Automated-Email-Marketing-System.Tests.csproj" --filter Category=Integration --no-restore --verbosity normal
           env:
             SELENIUM_REMOTE_URL: http://localhost:4444/wd/hub
             SELENIUM_BROWSER: chrome
