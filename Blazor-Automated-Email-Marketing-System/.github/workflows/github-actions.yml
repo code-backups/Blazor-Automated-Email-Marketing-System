@@ -4,7 +4,8 @@ name: CI/CD Workflow
 on:
   push:
     branches:
-      - CI-Dev-Staging-Tests
+      #- CI-Dev-Staging-Tests
+      - main
 
 # Environment variables are accessible to all jobs
 env:
