@@ -3,3 +3,6 @@ bin/
 obj/
 Migrations/
 Data/database.db
+Blazor-Automated-Email-Marketing-System/Database/database.db
+Blazor-Automated-Email-Marketing-System/Database/database.db-shm
+Blazor-Automated-Email-Marketing-System/Database/database.db-wal

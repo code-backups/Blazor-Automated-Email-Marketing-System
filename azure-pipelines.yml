@@ -1,119 +1,101 @@
-# Azure pipeline yml supercedes workflows github actions yml
+trigger: none # Disable automatic triggers.
 
-# TODO replace my-docker-registry
-# TODO urls
+# Schedule the pipeline to run every 4 hours.
+schedules:
+  - cron: '0 */4 * * *' # Cron check every 4 hours.
+    displayName: 'Check for new Docker image'
+    branches:
+      include:
+        - main
+    always: true
 
-# Define the branch to trigger the pipeline on
-trigger:
-- main
-
-# Define variables to be used in the pipeline
 variables:
-  imageName: 'myapp'
+  dockerHubUsername: $(DOCKER_HUB_USERNAME) # Set Docker username from pipeline secrets.
+  dockerHubPassword: $(DOCKER_HUB_PASSWORD) # Set Docker password from pipeline secrets.
 
-# Define the stages of the pipeline
-stages:
-- stage: Build
-  displayName: Build image
-  jobs:
-  - job: Build
-    displayName: Build
+jobs:
+  # Job 1: Check for a new Docker image.
+  - job: CheckForNewDockerImage
+    displayName: 'Check for new Docker image'
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    # Checkout the code repository
-    - checkout: self
-    # Add steps for code scanning, compiling, testing, and completion checks
-    - name: Code_scanning
-      run: echo Imagine we are linting and scanning our code here
-    - name: Compile
-      run: echo Imagine we are compiling our code here
-    - name: Test
-      run: echo Imagine we are testing our code here 
-    - name: ChecksComplete
-      run: echo Checks complete code built successfully
+      # PowerShell task to check Docker Hub for a new image using Cron.
+      - task: PowerShell@2
+        displayName: 'Check Docker Hub for new image'
+        inputs:
+          targetType: 'inline'
+          script: |
+            # Set Docker credentials and repository.
+            $DockerHubUsername = "$(dockerHubUsername)"
+            $DockerHubPassword = "$(dockerHubPassword)"
+            $DockerHubRepo = "$($DockerHubUsername)/blazor-automated-email-marketing-system"
+            # Log in to Docker Hub.
+            docker login -u $DockerHubUsername -p $DockerHubPassword
+            # Retrieve the latest Docker image.
+            $LatestImageTag = docker pull $DockerHubRepo | Select-String -Pattern 'Status: Downloaded newer image for' -Quiet
+            # Log out from Docker Hub.
+            docker logout
+            # Check if a new image is found.
+            if (-not $LatestImageTag) {
+              Write-Host "No new Docker image found."
+              exit 1
+            }
 
-- stage: DeployDevelopment
-  displayName: Deploy to Development
-  dependsOn: Build
-  condition: succeeded()
-  jobs:
-  - deployment: Deploy
-    displayName: Deploy
-    # Define the environment for deployment
-    environment: 'Development'
-    strategy:
-      runOnce:
-        deploy:
-          pool:
-            vmImage: 'ubuntu-latest'
-          steps:
-          # Push the Docker image to the registry
-          - task: Docker@2
-            displayName: Push image to Docker Hub
-            inputs:
-              command: push
-              containerRegistry: 'Docker Hub'
-              repository: 'my-docker-registry/$(imageName)'
-              tags: |
-                $(imageName):$(Build.BuildId)
-          # Add a step for deployment
-          - name: Deploy
-            run: echo Deploying to Development http://dev.myapp.com
+  # Job 2: Deploy the new Docker image to production.
+  - job: DeployToWebApp
+    displayName: 'Deploy to Web App'
+    steps:
+      # Azure CLI task to log in to Azure.
+      - task: AzureCLI@2
+        displayName: 'Log in to Azure'
+        inputs:
+          azureSubscription: 'My Azure Subscription'
+          scriptType: 'bash'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            az login --service-principal -u ${{ secrets.AZURE_CLIENT_ID }} -p ${{ secrets.AZURE_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }}
+      
+      # Docker task to build and push Docker image.
+      - task: Docker@2
+        displayName: 'Build and push Docker image'
+        inputs:
+          containerRegistry: 'myacr'
+          repository: 'BlazorAutomatedEmailMarketingSystem'
+          command: 'buildAndPush'
+          Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+          tags: 'latest'
+      
+      # Azure CLI task to create a web app for containers.
+      - task: AzureCLI@2
+        displayName: 'Create Web App for Containers'
+        inputs:
+          azureSubscription: 'My Azure Subscription'
+          scriptType: 'bash'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            az webapp create --name AutoEMS --resource-group myresourcegroup --plan AutoEMServiceplan  --deployment-container-image myacr.azurecr.io/BlazorAutomatedEmailMarketingSystem:latest
+      
+      # Bash script to perform XUnit smoke test by sending a request to the home page of the app and checking if it returns an HTTP 200 (success) status code.
+      - script: |
+          response=$(curl --write-out %{http_code} --silent --output /dev/null http://your-app-url)
+          if [ $response -eq 200 ]
+          then
+            echo"Smoke test passed. Home page returned HTTP 200."
+          else
+            echo "Smoke test failed. Home page did not return HTTP 200."
+            exit 1
+          fi
+        displayName: 'Smoke Test' # This step performs a smoke test.
 
-- stage: DeployStaging
-  displayName: Deploy to Staging
-  dependsOn: Build
-  # Define the condition for deployment to staging
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
-  jobs:
-  - deployment: Deploy
-    displayName: Deploy
-    # Define the environment for deployment
-    environment: 'Staging'
-    strategy:
-      runOnce:
-        deploy:
-          pool:
-            vmImage: 'ubuntu-latest'
-          steps:
-          # Push the Docker image to the registry
-          - task: Docker@2
-            displayName: Push image to Docker Hub
-            inputs:
-              command: push
-              containerRegistry: 'Docker Hub'
-              repository: 'my-docker-registry/$(imageName)'
-              tags: |
-                $(imageName):$(Build.BuildId)
-          # Add a step for deployment
-          - name: Deploy
-            run: echo Deploying to Staging http://test.myapp.com
-
-- stage: DeployProduction
-  displayName: Deploy to Production
-  dependsOn: DeployStaging
-  condition: succeeded()
-  jobs:
-  - deployment: Deploy
-    displayName: Deploy
-    # Define the environment for deployment
-    environment: 'Production'
-    strategy:
-      runOnce:
-        deploy:
-          pool:
-            vmImage: 'ubuntu-latest'
-          steps:
-          # Push the Docker image to the registry
-          - task: Docker@2
-            displayName: Push image to Docker Hub
-            inputs:
-              command: push
-              containerRegistry: 'Docker Hub'
-              repository: 'my-docker-registry/$(imageName)'
-              tags: |
-                $(imageName):$(Build.BuildId)
-          # Add a step for deployment
-          - name: Deploy
-            run: echo Deploying to Production http://live.myapp.com
+      # Bash script to perform a health check test by sending a request to the /health url of the app and checking if it returns an HTTP 200 status code.
+      - script: |
+          response=$(curl --write-out %{http_code} --silent --output /dev/null http://my-live-app-url/health)
+          if [ $response -eq 200 ]
+          then
+            echo "Health check passed. /health endpoint returned HTTP 200."
+          else
+            echo "Health check failed. /health endpoint did not return HTTP 200."
+            exit 1
+          fi
+        displayName: 'Health Check' # This step performs a health check.
