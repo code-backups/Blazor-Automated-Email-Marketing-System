@@ -5041,11 +5041,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\komputr\\Desktop\\project\\app_34\\Blazor-Automated-Email-Marketing-System.Tests\\Blazor-Automated-Email-Marketing-System.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\komputr\\Desktop\\project\\app_34\\Blazor-Automated-Email-Marketing-System\\Blazor-Automated-Email-Marketing-System.Tests\\Blazor-Automated-Email-Marketing-System.Tests.csproj",
       "projectName": "Blazor-Automated-Email-Marketing-System.Tests",
-      "projectPath": "C:\\Users\\komputr\\Desktop\\project\\app_34\\Blazor-Automated-Email-Marketing-System.Tests\\Blazor-Automated-Email-Marketing-System.Tests.csproj",
+      "projectPath": "C:\\Users\\komputr\\Desktop\\project\\app_34\\Blazor-Automated-Email-Marketing-System\\Blazor-Automated-Email-Marketing-System.Tests\\Blazor-Automated-Email-Marketing-System.Tests.csproj",
       "packagesPath": "C:\\Users\\komputr\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\komputr\\Desktop\\project\\app_34\\Blazor-Automated-Email-Marketing-System.Tests\\obj\\",
+      "outputPath": "C:\\Users\\komputr\\Desktop\\project\\app_34\\Blazor-Automated-Email-Marketing-System\\Blazor-Automated-Email-Marketing-System.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -5067,8 +5067,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\komputr\\Desktop\\project\\app_34\\Blazor-Automated-Email-Marketing-System\\Blazor-Automated-Email-Marketing-System\\Blazor-Automated-Email-Marketing-System.csproj": {
-              "projectPath": "C:\\Users\\komputr\\Desktop\\project\\app_34\\Blazor-Automated-Email-Marketing-System\\Blazor-Automated-Email-Marketing-System\\Blazor-Automated-Email-Marketing-System.csproj"
+            "C:\\Users\\komputr\\Desktop\\project\\app_34\\Blazor-Automated-Email-Marketing-System\\Blazor-Automated-Email-Marketing-System\\Blazor-Automated-Email-Marketing-System\\Blazor-Automated-Email-Marketing-System.csproj": {
+              "projectPath": "C:\\Users\\komputr\\Desktop\\project\\app_34\\Blazor-Automated-Email-Marketing-System\\Blazor-Automated-Email-Marketing-System\\Blazor-Automated-Email-Marketing-System\\Blazor-Automated-Email-Marketing-System.csproj"
             }
           }
         }

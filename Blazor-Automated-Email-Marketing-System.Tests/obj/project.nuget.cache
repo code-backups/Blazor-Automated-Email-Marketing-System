@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "y9uGgVLoy4uvJ75UKQcti30NhRRnvc/aPsE80YqZR9DkUmlv2rMoLmGTnTQ8Y8mKX3EjkUaB8Kj3HGUDKzvVTQ==",
+  "dgSpecHash": "SE7rhVkBWqUWbiO5EqOO1kcK0m7P9uf8PwzxaKE/W7QmpcPV8n0tTCBh4ReBUIaAEb5eRgepo/lfv+wgc6i76A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\komputr\\Desktop\\project\\app_34\\Blazor-Automated-Email-Marketing-System.Tests\\Blazor-Automated-Email-Marketing-System.Tests.csproj",
+  "projectFilePath": "C:\\Users\\komputr\\Desktop\\project\\app_34\\Blazor-Automated-Email-Marketing-System\\Blazor-Automated-Email-Marketing-System.Tests\\Blazor-Automated-Email-Marketing-System.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\komputr\\.nuget\\packages\\anglesharp\\0.17.1\\anglesharp.0.17.1.nupkg.sha512",
     "C:\\Users\\komputr\\.nuget\\packages\\coverlet.collector\\3.2.0\\coverlet.collector.3.2.0.nupkg.sha512",

@@ -17,7 +17,7 @@ public class StagingTests
 
     [Test]
     [Category("Integration")]
-    public void Models_Integration_Test()
+    public void Models_Integration()
     {
         // Arrange - Create instance of Subscriber model
         var subscriber = new Subscriber
