@@ -1,8 +1,0 @@
-version: '3.4'
-
-services:
-  blazor-automated-email-marketing-system:
-    image: blazor-automated-email-marketing-system:v1.0
-    build:
-      context: .
-      dockerfile: Dockerfile

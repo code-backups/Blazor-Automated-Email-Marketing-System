@@ -1,0 +1,69 @@
+﻿@page "/Features/03"
+@using Blazor_Automated_Email_Marketing_System.Models
+@using Blazor_Automated_Email_Marketing_System.Services
+@inject DataService DataService
+
+<h1>Requirement 3 - Segmentation</h1>
+
+<label for="segmentSelect">Select a segment:</label>
+<select id="segmentSelect" @onchange="OnSegmentSelected">
+    @foreach (var segment in segments)
+    {
+        <option value="@segment.Id">@segment.Name</option>
+    }
+</select>
+
+@if (selectedSegment != null)
+{
+    <h2>Subscribers in @selectedSegment.Name</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email Address</th>
+                <th>Interests</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var subscriber in subscribers!)
+            {
+                <tr>
+                    <td>@subscriber.FirstName</td>
+                    <td>@subscriber.LastName</td>
+                    <td>@subscriber.EmailAddress</td>
+                    <td>@subscriber.TagIdsCsv!.Split(',').Select(tagId => tags.FirstOrDefault(t => t.Id == int.Parse(tagId))?.Name).Where(name => name != null).Aggregate((a, b) => $"{a}, {b}")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Segment> segments = new List<Segment>();
+    private List<Subscriber>? subscribers = new List<Subscriber>();
+    private List<Tag> tags = new List<Tag>();
+    private Segment selectedSegment = null!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        subscribers = await DataService.GetAllSubscribers();
+        segments = await DataService.GetAllSegments();
+        tags = await DataService.GetAllTags();
+    }
+
+    private void OnSegmentSelected(ChangeEventArgs e)
+    {
+        int segmentId = int.Parse(e.Value!.ToString()!);
+        selectedSegment = segments.FirstOrDefault(segment => segment.Id == segmentId)!;
+        if (selectedSegment != null)
+        {
+            var subscriberIds = selectedSegment.SubscriberIdsCsv!.Split(',').Select(int.Parse);
+            subscribers = subscribers!.Where(subscriber => subscriberIds.Contains(subscriber.Id)).ToList();
+        }
+        else
+        {
+            subscribers = new List<Subscriber>();
+        }
+    }
+}

@@ -1,0 +1,50 @@
+﻿@page "/Features/02"
+@inject DataService DataService
+@using Blazor_Automated_Email_Marketing_System.Models
+@using Blazor_Automated_Email_Marketing_System.Services
+
+<h1>Requirement 2 - Personalisation</h1>
+
+<div>
+    <h3>Personalised Email Message</h3>
+    <p>@_emailMessageTemplate!.Subject</p>
+    <p>@_emailMessageTemplate.Body</p>
+
+</div>
+
+@code {
+    private List<Subscriber>? _subscribers;
+    private List<EmailMessage>? _emailMessages;
+    private int SelectedSubscriberId { get; set; }
+    private EmailMessage? _emailMessageTemplate;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _subscribers = await DataService.GetAllSubscribers();
+        _emailMessages = await DataService.GetAllEmailMessages();
+        SelectedSubscriberId = _subscribers!.FirstOrDefault()?.Id ?? 0;
+        _emailMessageTemplate = _emailMessages!.FirstOrDefault()!;
+        PersonaliseEmailMessage();
+    }
+
+    public void PersonaliseEmailMessage()   // public for xUnit testing
+    {
+        var selectedSubscriber = _subscribers!.FirstOrDefault(s => s.Id == SelectedSubscriberId);
+        if (selectedSubscriber == null || _emailMessageTemplate == null) return;
+
+        _emailMessageTemplate.Body = _emailMessageTemplate.Body!
+            .Replace("{{FirstName}}", selectedSubscriber.FirstName)
+            .Replace("{{LastName}}", selectedSubscriber.LastName)
+            .Replace("{{EmailAddress}}", selectedSubscriber.EmailAddress)
+            .Replace("{{Product1}}", "Glass Hammers")                           // TODO hardcoded
+            .Replace("{{Product2}}", "Sky Hooks")
+            .Replace("{{Product3}}", "Blinker Fluid")
+            .Replace("{{CompanyName}}", "Funny Stuff");
+
+        _emailMessageTemplate.Subject = _emailMessageTemplate.Subject!
+            .Replace("{{FirstName}}", selectedSubscriber.FirstName)
+            .Replace("{{LastName}}", selectedSubscriber.LastName);
+    }
+
+}
+

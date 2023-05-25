@@ -1,0 +1,279 @@
+{
+  "Subscribers": [
+    {
+      "Id": 1,
+      "FirstName": "John",
+      "LastName": "Doe",
+      "EmailAddress": "johndoe@example.com",
+      "TagIdsCsv": "1,4,7,10,11,13,15,16"
+    },
+    {
+      "Id": 2,
+      "FirstName": "Jane",
+      "LastName": "Doe",
+      "EmailAddress": "janedoe@example.com",
+      "TagIdsCsv": "2,5,8,9,11,14,15,16"
+    },
+    {
+      "Id": 3,
+      "FirstName": "Max",
+      "LastName": "Smith",
+      "EmailAddress": "maxsmith@example.com",
+      "TagIdsCsv": "1,5,7,10,12,13,15,17"
+    },
+    {
+      "Id": 4,
+      "FirstName": "Sarah",
+      "LastName": "Johnson",
+      "EmailAddress": "sarahjohnson@example.com",
+      "TagIdsCsv": "2,6,8,9,11,14,16,17"
+    },
+    {
+      "Id": 5,
+      "FirstName": "Alex",
+      "LastName": "Taylor",
+      "EmailAddress": "alextaylor@example.com",
+      "TagIdsCsv": "1,5,7,9,12,13,16,17"
+    },
+    {
+      "Id": 6,
+      "FirstName": "Patrick",
+      "LastName": "O'Malley",
+      "EmailAddress": "patrickomalley@example.com",
+      "TagIdsCsv": "3,4,7,11,13,14,15,16"
+    },
+    {
+      "Id": 7,
+      "FirstName": "Siobhan",
+      "LastName": "Murphy",
+      "EmailAddress": "siobhanmurphy@example.com",
+      "TagIdsCsv": "2,5,7,10,14,15,16,17"
+    },
+    {
+      "Id": 8,
+      "FirstName": "Eoin",
+      "LastName": "Kelly",
+      "EmailAddress": "eoinkelly@example.com",
+      "TagIdsCsv": "1,4,7,10,11,13,15,16"
+    },
+    {
+      "Id": 9,
+      "FirstName": "Aoife",
+      "LastName": "O'Connor",
+      "EmailAddress": "aoifeoconnor@example.com",
+      "TagIdsCsv": "2,5,8,9,11,14,15,16"
+    },
+    {
+      "Id": 10,
+      "FirstName": "Cian",
+      "LastName": "McCarthy",
+      "EmailAddress": "cianmccarthy@example.com",
+      "TagIdsCsv": "1,3,7,10,11,13,15,17"
+    }
+  ],
+  "Campaigns": [
+    {
+      "Id": 1,
+      "Name": "Spring Fashion Sale",
+      "Description": "Promote our latest fashion items to subscribers interested in fashion",
+      "SegmentIdsCsv": "3",
+      "EmailMessageIdsCsv": "1"
+    },
+    {
+      "Id": 2,
+      "Name": "St. Patrick's Day Sale",
+      "Description": "Offer discounts on selected items for St. Patrick's Day",
+      "SegmentIdsCsv": "2,4,5",
+      "EmailMessageIdsCsv": "2"
+    },
+    {
+      "Id": 3,
+      "Name": "Tech Gadget Launch",
+      "Description": "Announce the launch of our new tech gadget to subscribers interested in technology",
+      "SegmentIdsCsv": "1",
+      "EmailMessageIdsCsv": "3"
+    },
+    {
+      "Id": 4,
+      "Name": "Outdoor Adventure Gear Sale",
+      "Description": "Promote our latest outdoor adventure gear to subscribers interested in travel",
+      "SegmentIdsCsv": "6",
+      "EmailMessageIdsCsv": "4"
+    },
+    {
+      "Id": 5,
+      "Name": "Funny Name Sale",
+      "Description": "Silly things like skyhooks and underwater hairdryers",
+      "SegmentIdsCsv": "7",
+      "EmailMessageIdsCsv": "5"
+    },
+    {
+      "Id": 6,
+      "Name": "Humour Collection Sale",
+      "Description": "Promote our latest collection of humorous items",
+      "SegmentIdsCsv": "8",
+      "EmailMessageIdsCsv": "6"
+    }
+  ],
+  "Segments": [
+    {
+      "Id": 1,
+      "Name": "Male Subscribers in EU",
+      "SubscriberIdsCsv": "1,3,5",
+      "TagIdsCsv": "1,7"
+    },
+    {
+      "Id": 2,
+      "Name": "Female Subscribers in EU",
+      "SubscriberIdsCsv": "2,4",
+      "TagIdsCsv": "2,7"
+    },
+    {
+      "Id": 3,
+      "Name": "Other Gender Subscribers in EU",
+      "SubscriberIdsCsv": "6",
+      "TagIdsCsv": "3,7"
+    },
+    {
+      "Id": 4,
+      "Name": "Male Subscribers interested in Fashion",
+      "SubscriberIdsCsv": "1,3",
+      "TagIdsCsv": "1,11"
+    },
+    {
+      "Id": 5,
+      "Name": "Female Subscribers interested in Fashion",
+      "SubscriberIdsCsv": "2,4",
+      "TagIdsCsv": "2,11"
+    },
+    {
+      "Id": 6,
+      "Name": "Subscribers interested in Cooking",
+      "SubscriberIdsCsv": "1,2,3,4",
+      "TagIdsCsv": "10"
+    },
+    {
+      "Id": 7,
+      "Name": "Subscribers interested in Humour",
+      "SubscriberIdsCsv": "1,2,3,4,5,7",
+      "TagIdsCsv": "15"
+    }
+  ],
+  "Tags": [
+    {
+      "Id": 1,
+      "Name": "Male"
+    },
+    {
+      "Id": 2,
+      "Name": "Female"
+    },
+    {
+      "Id": 3,
+      "Name": "Other Gender"
+    },
+    {
+      "Id": 4,
+      "Name": "Age 18-25"
+    },
+    {
+      "Id": 5,
+      "Name": "Age 26-39"
+    },
+    {
+      "Id": 6,
+      "Name": "Age 40-60"
+    },
+    {
+      "Id": 7,
+      "Name": "EU"
+    },
+    {
+      "Id": 8,
+      "Name": "Non-EU"
+    },
+    {
+      "Id": 9,
+      "Name": "Interest: Cooking"
+    },
+    {
+      "Id": 10,
+      "Name": "Interest: Tech"
+    },
+    {
+      "Id": 11,
+      "Name": "Interest: Fashion"
+    },
+    {
+      "Id": 12,
+      "Name": "Interest: Travel"
+    },
+    {
+      "Id": 13,
+      "Name": "Interest: Health"
+    },
+    {
+      "Id": 14,
+      "Name": "Interest: Irish Culture"
+    },
+      
+    {
+      "Id": 16,
+      "Name": "Funky Hat"
+    },
+    {
+      "Id": 17,
+      "Name": "Posh Bag"
+    },
+    {
+      "Id": 18,
+      "Name": "Shamrock T-Shirt"
+    },
+    {
+      "Id": 19,
+      "Name": "Leprechaun Shoes"
+    },
+    {
+      "Id": 20,
+      "Name": "Irish Flag"
+    },
+    {
+      "Id": 21,
+      "Name": "AllSorts Supplies"
+    }
+
+  ],
+  "EmailMessages": [
+    {
+      "Id": 1,
+      "Subject": "{{FirstName}} Don't Miss Out on Our Exclusive Sale!",
+      "Body": "Dear {{FirstName}} {{LastName}},\n\nWe wanted to let you know about our exclusive sale for our valued subscribers. Get huge reductions off all purchases with the code 123456. Our latest collection includes {{Product1}}, {{Product2}} and {{Product3}}. Order now to take advantage of this limited-time offer.\n\nKind regards,\nThe {{CompanyName}} Team"
+    },
+    {
+      "Id": 2,
+      "Subject": "{{FirstName}} Celebrate St. Patrick's Day with Our Special Collection",
+      "Body": "Hi {{FirstName}},\n\nWe are excited to offer our special St. Patrick's Day collection featuring {{Product1}}, {{Product2}} and {{Product3}}. Show off your Irish pride with these fun and festive items. Order now to ensure delivery before the holiday!\n\nBest wishes,\nThe {{CompanyName}} Team"
+    },
+    {
+      "Id": 3,
+      "Subject": "New Season, New Styles: Check Out Our Latest Collection {{FirstName}}",
+      "Body": "Dear {{FirstName}},\n\nWe are thrilled to announce our latest collection, featuring {{Product1}}, {{Product2}}, and {{Product3}}. These stylish new pieces are perfect for the upcoming season, and we know you'll love them as much as we do. Order now and be the first to rock these must-have items!\n\nBest regards,\nThe {{CompanyName}} Team"
+    },
+    {
+      "Id": 4,
+      "Subject": "{{FirstName}}, Discover the Latest Tech Innovations",
+      "Body": "Hi {{FirstName}},\n\nWe wanted to share our latest tech innovations with you, including {{Product1}}, {{Product2}}, and {{Product3}}. These cutting-edge products will take your tech game to the next level. Order now and experience the future of technology!\n\nThanks for your support,\nThe {{CompanyName}} Team"
+    },
+    {
+      "Id": 5,
+      "Subject": "Get Your Workout On with Our Fitness Collection",
+      "Body":
+        "Dear {{FirstName}},\n\nWe know how important it is to stay active and healthy, which is why we are excited to offer our latest fitness collection. Featuring {{Product1}}, {{Product2}}, and {{Product3}}, these high-quality workout essentials will help you reach your fitness goals. Order now and get ready to sweat!\n\nBest wishes,\nThe {{CompanyName}} Team"
+    },
+    {
+      "Id": 6,
+      "Subject": "{{FirstName}}, Get Your Laugh On with Our Humorous Collection",
+      "Body": "Hi {{FirstName}},\n\nWe all need a good laugh sometimes and our humorous collection is just the thing to put a smile on your face. Featuring {{Product1}}, {{Product2}}, and {{Product3}}, these funny items will brighten up your day. Order now and let the chuckles begin!\n\nThanks for your support,\nThe {{CompanyName}} Team"
+    }
+  ]
+}
