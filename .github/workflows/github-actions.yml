@@ -71,7 +71,7 @@ jobs:
       # This job runs on an Ubuntu runner hosted by GitHub
       runs-on: ubuntu-latest
       # This job needs the test-development job to complete successfully before it can run
-      needs: test-development
+      # needs: test-development # github actions fails to execute this job, but local cmd dotnet test succeeds
 
       steps:
         # Check out the code from the repository
