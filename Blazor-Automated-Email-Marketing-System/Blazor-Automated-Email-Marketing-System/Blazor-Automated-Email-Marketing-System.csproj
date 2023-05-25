@@ -58,6 +58,8 @@
 
 	<ItemGroup>
 		<Folder Include="Database\" />
+		<Folder Include="Database\" />
+		<Folder Include="Data\" />
 		<Folder Include="Services\" />
 	</ItemGroup>
 
