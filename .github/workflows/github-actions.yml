@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - CI-Dev-Staging-Tests
+      #- main
 
 # Environment variables are accessible to all jobs
 env:
