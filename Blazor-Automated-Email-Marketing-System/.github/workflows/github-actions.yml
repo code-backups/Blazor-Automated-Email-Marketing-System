@@ -1,10 +1,10 @@
 name: CI/CD Workflow
 
-# This workflow is triggered on every push to the main branch
+# This workflow is triggered on every push to the CI-Dev-Staging-Tests branch
 on:
   push:
     branches:
-      - main
+      - CI-Dev-Staging-Tests
 
 # Environment variables are accessible to all jobs
 env:
