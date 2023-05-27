@@ -17,6 +17,10 @@ jobs:
     # This job runs on an Ubuntu runner hosted by GitHub
     runs-on: ubuntu-latest
 
+    # set environment
+    environment:
+      name: Development
+
     steps:
       # Clear the NuGet cache to ensure we're using the latest packages
       - name: Clear NuGet cache
@@ -74,6 +78,10 @@ jobs:
       needs: test-development # github actions fails to execute test-development, local cmd dotnet test succeeds
       # if: ${{ always() }} # always execute test-staging
 
+      # set environment for retrieving secrets
+      environment:
+        name: Staging
+
       steps:
         # Check out the code from the repository
         - name: Check out repository
@@ -120,6 +128,10 @@ jobs:
     # This job needs the test-staging job to complete successfully before it can run
     needs: test-staging # github actions fails to execute test-staging, local cmd dotnet test succeeds
     # if: ${{ always() }} # always execute build-and-push
+
+    # set environment for retrieving secrets
+    environment:
+      name: Production
 
     steps:
       # Check out the code from the repository
