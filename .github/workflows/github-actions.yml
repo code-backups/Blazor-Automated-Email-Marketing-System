@@ -87,12 +87,12 @@ jobs:
             dotnet-version: '7.0.x'
 
         # Set up Selenium for integration tests
-        #- name: Setup Selenium
-        #  uses: webdriverio/setup-selenium@v1
+        - name: Setup Selenium
+          uses: webdriverio/setup-selenium@v1
 
         # Set up ChromeDriver for integration tests
-        #- name: Setup ChromeDriver
-        #  uses: nanasess/setup-chromedriver@master
+        - name: Setup ChromeDriver
+          uses: nanasess/setup-chromedriver@master
 
         # Install the project dependencies for the test project
         - name: Install test project dependencies
