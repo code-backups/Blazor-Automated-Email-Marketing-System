@@ -161,5 +161,5 @@ jobs:
         env:
            VERSION: v1.0.0
         run: |
-           docker build -t ${{ secrets.PRODUCTION_DOCKER_HUB_USERNAME }}/blazor-automated-email-marketing-system:${{ env.VERSION}} -f /home/runner/work/Blazor-Automated-Email-Marketing-System/Dockerfile .
-           docker push ${{ secrets.PRODUCTION_DOCKER_HUB_USERNAME }}/blazor-automated-email-marketing-system:${{ env.VERSION}}
+           docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/blazor-automated-email-marketing-system:${VERSION} -f /home/runner/work/Blazor-Automated-Email-Marketing-System/Dockerfile .
+           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/blazor-automated-email-marketing-system:${{ env.VERSION}}
