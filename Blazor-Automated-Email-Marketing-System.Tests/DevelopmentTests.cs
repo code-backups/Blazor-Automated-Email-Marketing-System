@@ -7,12 +7,15 @@ namespace Blazor_Automated_Email_Marketing_System.Tests
 {
     public class DevelopmentTests
     {
+        // Simple development test sets up mock data Subscriber and EmailMessage, personalises the email message, then asserts that the expected results match the actual results.
+
         private List<Subscriber>? _subscribers;
         private List<EmailMessage>? _emailMessages;
         private int SelectedSubscriberId { get; set; }
         private EmailMessage? _emailMessageTemplate;
 
-        [Fact, Test, Category("Development")]
+        [Fact, Test]
+        [Category("Development")]
         public void UnitTest()
         {
             // Arrange - Set up mock data
