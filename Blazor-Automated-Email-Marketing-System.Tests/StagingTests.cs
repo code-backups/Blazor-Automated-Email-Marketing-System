@@ -1,44 +1,31 @@
 using Blazor_Automated_Email_Marketing_System.Models;
 using NUnit.Framework;
-using OpenQA.Selenium.Chrome;
 
-namespace Blazor_Automated_Email_Marketing_System.Tests;
-
-public class StagingTests
+namespace Blazor_Automated_Email_Marketing_System.Tests
 {
-    private ChromeDriver _driver = null!;
-
-    [SetUp]
-    public void Setup()
+    public class StagingTests
     {
-        _driver = new ChromeDriver(Environment.CurrentDirectory);
-        _driver.Manage().Window.Maximize();
-    }
+        // Simple integration test verifies interaction between different components of Subscriber model - first name and last name to create a correct full name.
 
-    [Test]
-    [Category("Integration")]
-    public void Models_Integration()
-    {
-        // Arrange - Create instance of Subscriber model
-        var subscriber = new Subscriber
+        [Test]
+        [Category("Integration")]
+        public void Models_Integration()
         {
-            Id = 1,
-            FirstName = "John",
-            LastName = "Doe",
-            EmailAddress = "johndoe@notadomain.com",
-            TagIdsCsv = "1,2,3"
-        };
+            // Arrange - Create an instance of the Subscriber model
+            var subscriber = new Subscriber
+            {
+                Id = 1,
+                FirstName = "John",
+                LastName = "Doe",
+                EmailAddress = "johndoe@notadomain.com",
+                TagIdsCsv = "1,2,3"
+            };
 
-        // Act - Combine the first name and last name of the Subscriber model to create a full name
-        var fullName = $"{subscriber.FirstName} {subscriber.LastName}";
+            // Act - Combine the first name and last name of the Subscriber model to create a full name
+            var fullName = $"{subscriber.FirstName} {subscriber.LastName}";
 
-        // Assert - Verify that the full name is equal to "John Doe"
-        Assert.AreEqual("John Doe", fullName);
-    }
-
-    [TearDown]
-    public void TearDown()
-    {
-        _driver?.Quit();
+            // Assert - Verify that the full name is equal to "John Doe"
+            Assert.AreEqual("John Doe", fullName);
+        }
     }
 }
