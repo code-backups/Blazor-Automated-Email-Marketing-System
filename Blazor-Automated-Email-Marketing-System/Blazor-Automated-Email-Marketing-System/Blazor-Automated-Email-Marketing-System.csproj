@@ -13,6 +13,8 @@
 		<DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
 		<!-- do not overwrite CI assemblies with test project copies -->
 		<CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+		<!-- StyleCop -->
+		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -45,25 +47,8 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<!--<PackageReference Include="WebDriverManager" Version="2.16.2" /> -->
-		<PackageReference Include="xunit" Version="2.4.2" />
-		<PackageReference Include="xunit.analyzers" Version="1.1.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="Database\" />
-		<Folder Include="Database\" />
-		<Folder Include="Data\" />
-		<Folder Include="Services\" />
-	</ItemGroup>
-
-	<!-- stylecop -->
-	<ItemGroup>
+		<!-- <PackageReference Include="xunit" Version="2.4.2" /> -->
+		<!-- <PackageReference Include="xunit.analyzers" Version="1.1.0" /> -->
 		<AdditionalFiles Include="stylecop.json" />
 	</ItemGroup>
-
-	<!-- stylecop treat warnings as errors -->
-	<PropertyGroup>
-		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-	</PropertyGroup>
-
 </Project>
