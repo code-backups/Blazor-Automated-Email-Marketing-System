@@ -45,7 +45,7 @@ jobs:
     # This job runs on an Ubuntu runner hosted by GitHub
     runs-on: ubuntu-latest
     # This job needs the lint-csharp-development job to complete successfully before it can run
-    needs: lint-csharp-development
+    needs: lint-csharp-development # executes correctly in GiutHub Actions
 
     steps:
       # Check out the code from the repository
@@ -71,7 +71,8 @@ jobs:
       # This job runs on an Ubuntu runner hosted by GitHub
       runs-on: ubuntu-latest
       # This job needs the test-development job to complete successfully before it can run
-      needs: test-development # github actions fails to execute test-development, but local cmd dotnet test succeeds
+      needs: test-development # github actions fails to execute test-development, local cmd dotnet test succeeds
+      if: ${{ always() }} # always execute test-staging
 
       steps:
         # Check out the code from the repository
@@ -112,7 +113,8 @@ jobs:
     # This job runs on an Ubuntu runner hosted by GitHub
     runs-on: ubuntu-latest
     # This job needs the test-staging job to complete successfully before it can run
-    # needs: test-staging # github actions fails to execute test-staging, but local cmd dotnet test succeeds
+    needs: test-staging # github actions fails to execute test-staging, local cmd dotnet test succeeds
+    if: ${{ always() }} # always execute build-and-push
 
     steps:
       # Check out the code from the repository
