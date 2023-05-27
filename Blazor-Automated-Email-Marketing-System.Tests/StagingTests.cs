@@ -1,31 +1,54 @@
-using Blazor_Automated_Email_Marketing_System.Models;
 using NUnit.Framework;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 
 namespace Blazor_Automated_Email_Marketing_System.Tests
 {
     public class StagingTests
     {
-        // Simple integration test verifies interaction between different components of Subscriber model - first name and last name to create a correct full name.
+        private IWebDriver _driver;
+
+        [SetUp]
+        public void Setup()
+        {
+#if GITHUB_ACTIONS
+            var chromeOptions = new ChromeOptions();
+            chromeOptions.BinaryLocation = "/usr/bin/chromium-browser"; // Path to Chromium binary in Ubuntu runner
+
+            var chromeDriverService = ChromeDriverService.CreateDefaultService();
+            chromeDriverService.UseSpecCompliantProtocol = true;
+
+            _driver = new ChromeDriver(chromeDriverService, chromeOptions);
+#else
+            _driver = new ChromeDriver();
+#endif
+            _driver.Manage().Window.Maximize();
+        }
 
         [Test]
         [Category("Integration")]
-        public void Models_Integration()
+        public void BrowserIntegration_CheckPageTitle()
         {
-            // Arrange - Create an instance of the Subscriber model
-            var subscriber = new Subscriber
-            {
-                Id = 1,
-                FirstName = "John",
-                LastName = "Doe",
-                EmailAddress = "johndoe@notadomain.com",
-                TagIdsCsv = "1,2,3"
-            };
+            // Arrange
+            var expectedTitle = "AutoEMS";
 
-            // Act - Combine the first name and last name of the Subscriber model to create a full name
-            var fullName = $"{subscriber.FirstName} {subscriber.LastName}";
+            // Act
+            _driver.Navigate().GoToUrl("https://localhost:7160/");
 
-            // Assert - Verify that the full name is equal to "John Doe"
-            Assert.AreEqual("John Doe", fullName);
+            // Wait until the page title contains the expected value
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            wait.Until(d => d.Title.Contains(expectedTitle));
+
+            // Assert
+            Assert.AreEqual(expectedTitle, _driver.Title);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _driver.Quit();
+            _driver.Dispose();
         }
     }
 }

@@ -86,6 +86,10 @@ jobs:
           with:
             dotnet-version: '7.0.x'
 
+        # Install Chromium browser in the runner
+        - name: Install Chromium
+          run: sudo apt-get install chromium-browser
+
         # Set up Selenium for integration tests
         - name: Setup Selenium
           uses: webdriverio/setup-selenium@v1
