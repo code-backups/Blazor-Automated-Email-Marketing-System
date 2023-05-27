@@ -41,30 +41,30 @@ jobs:
         run: dotnet build ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj --no-restore -c Release -p:TreatWarningsAsErrors=false
 
   # Second job is to run XUnit unit tests in the development environment
-  #test-development:
+  test-development:
     # This job runs on an Ubuntu runner hosted by GitHub
-    #runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
     # This job needs the lint-csharp-development job to complete successfully before it can run
-    #needs: lint-csharp-development # executes correctly in GiutHub Actions
+    needs: lint-csharp-development # executes correctly in GiutHub Actions
 
-    #steps:
+    steps:
       # Check out the code from the repository
-      #- name: Check out repository
-      #  uses: actions/checkout@v2
+      - name: Check out repository
+        uses: actions/checkout@v2
 
       # Set up the .NET environment
-      #- name: Setup .NET
-      #  uses: actions/setup-dotnet@v1
-      #  with:
-      #    dotnet-version: '7.0.x'
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '7.0.x'
 
       # Install the project dependencies
-      #- name: Install dependencies
-      #  run: dotnet restore ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj
+      - name: Install dependencies
+        run: dotnet restore ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj
 
       # Run the unit tests
-      #- name: Run unit tests
-      #  run: dotnet test ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj --no-restore --verbosity normal --logger:"console;verbosity=detailed"
+      - name: Run unit tests
+        run: dotnet test ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj --no-restore --verbosity normal --logger:"console;verbosity=detailed"
 
   # Third job is to run integration tests in the staging environment
   test-staging:
