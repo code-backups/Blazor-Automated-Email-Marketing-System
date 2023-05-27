@@ -103,7 +103,7 @@ jobs:
 
         # Run the integration tests
         - name: Run integration tests
-          run: dotnet test ./Blazor-Automated-Email-Marketing-System.Tests/Blazor-Automated-Email-Marketing-System.Tests.csproj --filter Category=Integration --no-restore --verbosity normal
+          run: dotnet test ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj --filter Category=Integration --no-restore --verbosity normal
           #env:
           #   SELENIUM_REMOTE_URL: http://localhost:4444/wd/hub
           #   SELENIUM_BROWSER: chrome
