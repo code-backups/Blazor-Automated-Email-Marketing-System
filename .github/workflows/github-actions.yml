@@ -86,12 +86,12 @@ jobs:
             dotnet-version: '7.0.x'
 
         # Set up Selenium for integration tests
-        - name: Setup Selenium
-          uses: webdriverio/setup-selenium@v1
+        #- name: Setup Selenium
+        #  uses: webdriverio/setup-selenium@v1
 
         # Set up ChromeDriver for integration tests
-        - name: Setup ChromeDriver
-          uses: nanasess/setup-chromedriver@master
+        #- name: Setup ChromeDriver
+        #  uses: nanasess/setup-chromedriver@master
 
         # Install the project dependencies for the test project
         - name: Install test project dependencies
@@ -105,9 +105,9 @@ jobs:
         # Run the integration tests
         - name: Run integration tests
           run: dotnet test ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj --filter Category=Integration --no-restore --verbosity normal
-          env:
-            SELENIUM_REMOTE_URL: http://localhost:4444/wd/hub
-            SELENIUM_BROWSER: chrome
+          #env:
+          #  SELENIUM_REMOTE_URL: http://localhost:4444/wd/hub
+          #  SELENIUM_BROWSER: chrome
 
   # Fourth job is to build and push the Docker image
   build-and-push:
