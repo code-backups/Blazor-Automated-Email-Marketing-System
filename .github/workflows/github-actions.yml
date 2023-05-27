@@ -92,7 +92,6 @@ jobs:
         # Set up ChromeDriver for integration tests
         - name: Setup ChromeDriver
           uses: nanasess/setup-chromedriver@master
-          uses: nanasess/setup-chromedriver@master
 
         # Install the project dependencies for the test project
         - name: Install test project dependencies
