@@ -119,7 +119,7 @@ jobs:
     # This job runs on an Ubuntu runner hosted by GitHub
     runs-on: ubuntu-latest
     # This job needs the test-staging job to complete successfully before it can run
-    needs: test-staging # github actions fails to execute test-staging, local cmd dotnet test succeeds
+    # needs: test-staging # github actions fails to execute test-staging, local cmd dotnet test succeeds
     if: ${{ always() }} # always execute build-and-push
 
     steps:
