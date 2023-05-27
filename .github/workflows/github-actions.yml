@@ -156,10 +156,10 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
 
-      # Build and push GitHub Actions CI "deployment" image to Docker CD
+      # Build and push Docker image in the production environment
       - name: Build and push Docker image
         env:
-          VERSION: v1.0.0 # Should not be hardcoded
+          VERSION: v1.0.0
         run: |
-          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/blazor-automated-email-marketing-system:${VERSION} .
-          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/blazor-automated-email-marketing-system:${VERSION}
+         docker build -t ${{ secrets.PRODUCTION_DOCKER_HUB_USERNAME }}/blazor-automated-email-marketing-system:${VERSION} -f /home/runner/work/Blazor-Automated-Email-Marketing-System/Dockerfile .
+         docker push ${{ secrets.PRODUCTION_DOCKER_HUB_USERNAME }}/blazor-automated-email-marketing-system:${VERSION}
