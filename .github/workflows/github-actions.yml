@@ -12,7 +12,7 @@ env:
   MSBUILDDIAGNOSTIC: true # DEBUG: Show detailed MSBuild output
 
 jobs:
-  # First job is to lint the C# code in the development environment
+  # First job is to lint the C# code in the development environment using StyleCop
   lint-csharp-development:
     # This job runs on an Ubuntu runner hosted by GitHub
     runs-on: ubuntu-latest
@@ -71,7 +71,7 @@ jobs:
       # This job runs on an Ubuntu runner hosted by GitHub
       runs-on: ubuntu-latest
       # This job needs the test-development job to complete successfully before it can run
-      needs: test-development # github actions fails to execute test-developemtn, but local cmd dotnet test succeeds
+      needs: test-development # github actions fails to execute test-development, but local cmd dotnet test succeeds
 
       steps:
         # Check out the code from the repository
@@ -126,10 +126,10 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
 
-      # Build and push the Docker image
+      # Build and push GitHub Actions CI "deployment" image to Docker CD
       - name: Build and push Docker image
         env:
-          VERSION: v1.0.0
+          VERSION: v1.0.0 # Should not be hardcoded
         run: |
           docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/blazor-automated-email-marketing-system:${VERSION} .
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/blazor-automated-email-marketing-system:${VERSION}
