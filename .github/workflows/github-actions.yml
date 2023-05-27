@@ -1,6 +1,6 @@
 name: CI/CD Workflow
 
-# This workflow is triggered on every push to the CI-Dev-Staging-Tests branch
+# This workflow triggers on every push to the CI-Dev-Staging-Tests branch
 on:
   push:
     branches:
