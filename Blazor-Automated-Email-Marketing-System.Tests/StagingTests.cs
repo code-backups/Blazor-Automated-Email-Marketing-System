@@ -20,8 +20,7 @@ namespace Blazor_Automated_Email_Marketing_System.Tests
                 EmailAddress = "johndoe@notadomain.com",
                 TagIdsCsv = "1,2,3"
             };
-
-            // Act - Combine the first name and last name of the Subscriber model to create a full name
+            // Act - Combine firstname, lastname of Subscriber - create full name
             var fullName = $"{subscriber.FirstName} {subscriber.LastName}";
 
             // Assert - Verify that the full name is equal to "John Doe"
