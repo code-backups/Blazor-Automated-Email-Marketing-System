@@ -14,7 +14,7 @@ namespace Blazor_Automated_Email_Marketing_System.Tests
         {
             _driver = new ChromeDriver(Environment.CurrentDirectory);
             _driver.Manage().Window.Maximize();
-            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
+            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
         }
 
         [Test, Category("Production")]
@@ -24,7 +24,7 @@ namespace Blazor_Automated_Email_Marketing_System.Tests
 
             Task.Delay(TimeSpan.FromSeconds(5)).Wait();
 
-            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
+            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
 
             IWebElement header = _driver.FindElement(By.TagName("h1"));
 
