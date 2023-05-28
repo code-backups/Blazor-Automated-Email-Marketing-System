@@ -156,10 +156,16 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
 
+      # Print the value of the VERSION variable
+      - name: Print VERSION variable
+        run: |
+            echo "VERSION: ${{ env.VERSION }}"
+
       # Build and push Docker image in the production environment
       - name: Build and push Docker image
         env:
           VERSION: ${{ secrets.VERSION }}
+
         run: |
           docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/blazor-automated-email-marketing-system:${{ env.VERSION }} -f ./Blazor-Automated-Email-Marketing-System/Dockerfile ./Blazor-Automated-Email-Marketing-System
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/blazor-automated-email-marketing-system:${{ env.VERSION }}
