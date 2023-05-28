@@ -54,7 +54,7 @@ jobs:
           scriptLocation: 'inlineScript'
           inlineScript: |
             # Bash script to log in to Azure using Azure CLI
-      
+
       - task: Docker@2
         displayName: 'Build and push Docker image'
         inputs:
@@ -63,7 +63,7 @@ jobs:
           command: 'buildAndPush'
           Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
           tags: 'latest'
-      
+
       - task: AzureCLI@2
         displayName: 'Create Web App for Containers'
         inputs:
@@ -72,7 +72,7 @@ jobs:
           scriptLocation: 'inlineScript'
           inlineScript: |
             # Bash script to create a web app for containers in Azure using Azure CLI
-      
+
       - script: |
           # Bash script to perform a smoke test by sending a request to the home page of the app and checking the response status code
           response=$(curl --write-out %{http_code} --silent --output /dev/null http://your-app-url)
@@ -83,7 +83,7 @@ jobs:
             exit 1
           fi
         displayName: 'Smoke Test'
-        
+
       - script: |
           # Bash script to perform a health check by sending a request to the /health endpoint of the app and checking the response status code
           response=$(curl --write-out %{http_code} --silent --output /dev/null http://my-live-app-url/health)
