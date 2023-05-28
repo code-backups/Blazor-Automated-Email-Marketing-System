@@ -36,50 +36,50 @@ jobs:
               exit 1
             }
 
-# Job 2: Deploy the new Docker image to production
-- job: DeployToWebApp
-  displayName: 'Deploy to Web App'
-  steps:
-    - task: AzureCLI@2
-      displayName: 'Log in to Azure'
-      inputs:
-        azureSubscription: 'My Azure Subscription'
-        scriptType: 'bash'
-        scriptLocation: 'inlineScript'
-        inlineScript: |
-          # Bash script to log in to Azure using Azure CLI
+  # Job 2: Deploy the new Docker image to production
+  - job: DeployToWebApp
+    displayName: 'Deploy to Web App'
+    steps:
+      - task: AzureCLI@2
+        displayName: 'Log in to Azure'
+        inputs:
+          azureSubscription: 'My Azure Subscription'
+          scriptType: 'bash'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            # Bash script to log in to Azure using Azure CLI
       
-    - task: Docker@2
-      displayName: 'Build and push Docker image'
-      inputs:
-        containerRegistry: 'myacr'
-        repository: 'BlazorAutomatedEmailMarketingSystem'
-        command: 'buildAndPush'
-        Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        tags: 'latest'
+      - task: Docker@2
+        displayName: 'Build and push Docker image'
+        inputs:
+          containerRegistry: 'myacr'
+          repository: 'BlazorAutomatedEmailMarketingSystem'
+          command: 'buildAndPush'
+          Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+          tags: 'latest'
       
-    - task: AzureCLI@2
-      displayName: 'Create Web App for Containers'
-      inputs:
-        azureSubscription: 'My Azure Subscription'
-        scriptType: 'bash'
-        scriptLocation: 'inlineScript'
-        inlineScript: |
-          # Bash script to create a web app for containers in Azure using Azure CLI
+      - task: AzureCLI@2
+        displayName: 'Create Web App for Containers'
+        inputs:
+          azureSubscription: 'My Azure Subscription'
+          scriptType: 'bash'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            # Bash script to create a web app for containers in Azure using Azure CLI
       
-    - script: |
-        # Bash script to perform a smoke test by sending a request to the home page of the app and checking the response status code
-        response=$(curl --write-out %{http_code} --silent --output /dev/null http://your-app-url)
-        if [ $response -eq 200 ]; then
-          echo "Smoke test passed. Home page returned HTTP 200."
-        else
-          echo "Smoke test failed. Home page did not return HTTP 200."
-          exit 1
-        fi
-      displayName: 'Smoke Test'
+      - script: |
+          # Bash script to perform a smoke test by sending a request to the home page of the app and checking the response status code
+          response=$(curl --write-out %{http_code} --silent --output /dev/null http://your-app-url)
+          if [ $response -eq 200 ]; then
+            echo "Smoke test passed. Home page returned HTTP 200."
+          else
+            echo "Smoke test failed. Home page did not return HTTP 200."
+            exit 1
+          fi
+        displayName: 'Smoke Test'
         
-    - script: |
-        # Bash script to perform a health check by sending a request to the /health endpoint of the app and checking the response status code
-        response=$(curl --write-out %{http_code} --silent --output /dev/null http://my-live-app-url/health)
-        if [ $response -eq 200 ]; then
-          echo "Health check passed. /health endpoint returned HTTP 200
+      - script: |
+          # Bash script to perform a health check by sending a request to the /health endpoint of the app and checking the response status code
+          response=$(curl --write-out %{http_code} --silent --output /dev/null http://my-live-app-url/health)
+          if [ $response -eq 200 ]; then
+            echo "Health check passed. /health endpoint returned HTTP 200."
