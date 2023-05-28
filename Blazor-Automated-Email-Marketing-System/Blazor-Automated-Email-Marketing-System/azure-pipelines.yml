@@ -12,8 +12,7 @@ schedules:
     always: true
 
 jobs:
-
-  - job: LoginAndPullNewImage
+  - job: CheckForNewDockerImage
     displayName: 'Check for new Docker image'
     pool:
       vmImage: 'ubuntu-latest'
@@ -23,59 +22,64 @@ jobs:
         inputs:
           targetType: 'inline'
           script: |
+            # Set Docker repository
             $DockerHubRepo = "$(DOCKER_HUB_USERNAME)/blazor-automated-email-marketing-system"
+            # Log in to Docker Hub
             docker login -u $(DOCKER_HUB_USERNAME) -p $(DOCKER_HUB_PASSWORD)
-            docker pull $DockerHubRepo
-            # TODO check if pulled image ends with :v1.0.0 if not, echo a warning, logout of docker and exit the pipeline
-
-  - job: ConvertAndRebuildImage
-    displayName: 'Convert Image and Rebuild'
-    pool:
-      vmImage: 'ubuntu-latest'
-    steps:
-      - script: |
-          - script: |
-              # Build a completely new Docker image from the pulled Docker image
-              docker build -t $(DOCKER_HUB_USERNAME)/blazor-automated-email-marketing-system-new:live .
-        displayName: 'Convert and Rebuild'
-
-  - job: TestImage
-    displayName: 'Test Docker Image'
-    pool:
-      vmImage: 'ubuntu-latest'
-    steps:
-      - script: |
-          - script: |
-          # Check if the new Docker image is a valid Docker image - simple Deployment test
-          if docker inspect $(DOCKER_HUB_USERNAME)/blazor-automated-email-marketing-system:latest &> /dev/null; then
-            echo "Docker image test passed. Image is valid."
-          else
-            echo "Docker image test failed. Image is invalid."
+            # Retrieve the latest Docker image
+            $LatestImageTag = docker pull $DockerHubRepo | Select-String -Pattern 'Status: Downloaded newer image for' -Quiet
+            # Log out from Docker Hub
             docker logout
+            # Check if a new image is found
+            if (-not $LatestImageTag) {
+              Write-Host "No new Docker image found."
+              exit 1
+            }
+
+  # Job 2: Deploy the new Docker image to production
+  - job: DeployToWebApp
+    displayName: 'Deploy to Web App'
+    steps:
+      - task: AzureCLI@2
+        displayName: 'Log in to Azure'
+        inputs:
+          azureSubscription: 'My Azure Subscription'
+          scriptType: 'bash'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            # Bash script to log in to Azure using Azure CLI
+      
+      - task: Docker@2
+        displayName: 'Build and push Docker image'
+        inputs:
+          containerRegistry: 'myacr'
+          repository: 'BlazorAutomatedEmailMarketingSystem'
+          command: 'buildAndPush'
+          Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+          tags: 'latest'
+      
+      - task: AzureCLI@2
+        displayName: 'Create Web App for Containers'
+        inputs:
+          azureSubscription: 'My Azure Subscription'
+          scriptType: 'bash'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            # Bash script to create a web app for containers in Azure using Azure CLI
+      
+      - script: |
+          # Bash script to perform a smoke test by sending a request to the home page of the app and checking the response status code
+          response=$(curl --write-out %{http_code} --silent --output /dev/null http://your-app-url)
+          if [ $response -eq 200 ]; then
+            echo "Smoke test passed. Home page returned HTTP 200."
+          else
+            echo "Smoke test failed. Home page did not return HTTP 200."
             exit 1
           fi
-        displayName: 'Docker Image Test'
-
-  - job: PushImage
-    displayName: 'Push Docker Image'
-    pool:
-      vmImage: 'ubuntu-latest'
-    steps:
-      - task: Docker@2
-        displayName: 'Push Docker Image'
-        inputs:
-          command: 'push'
-          containerRegistry: 'docker-hub'
-          repository: '$(DOCKER_HUB_REPO)'
-          tags: 'live'
-
-  - job: Logout
-    displayName: 'Logout from Docker'
-    pool:
-      vmImage: 'ubuntu-latest'
-    steps:
-      - task: Docker@2
-        displayName: 'Logout from Docker Hub'
-        inputs:
-          command: 'logout'
-          containerRegistry: 'docker-hub'
+        displayName: 'Smoke Test'
+        
+      - script: |
+          # Bash script to perform a health check by sending a request to the /health endpoint of the app and checking the response status code
+          response=$(curl --write-out %{http_code} --silent --output /dev/null http://my-live-app-url/health)
+          if [ $response -eq 200 ]; then
+            echo "Health check passed. /health endpoint returned HTTP 200."
