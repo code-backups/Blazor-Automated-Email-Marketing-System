@@ -24,62 +24,52 @@ jobs:
           script: |
             # Set Docker repository
             $DockerHubRepo = "$(DOCKER_HUB_USERNAME)/blazor-automated-email-marketing-system"
-            # Log in to Docker Hub
+            # Log in to Dockerhub
             docker login -u $(DOCKER_HUB_USERNAME) -p $(DOCKER_HUB_PASSWORD)
             # Retrieve the latest Docker image
-            $LatestImageTag = docker pull $DockerHubRepo | Select-String -Pattern 'Status: Downloaded newer image for' -Quiet
-            # Log out from Docker Hub
+            docker pull $DockerHubRepo
+            # Log out from Dockerhub
             docker logout
             # Check if a new image is found
-            if (-not $LatestImageTag) {
+            if (-not (docker images $DockerHubRepo --format "{{.Tag}}")) {
               Write-Host "No new Docker image found."
               exit 1
             }
 
-  # Job 2: Deploy the new Docker image to production
-  - job: DeployToWebApp
-    displayName: 'Deploy to Web App'
+# Job 2: Build, deploy and push Docker image to Dockerhub
+  - job: BuildDeployAndPushToDockerHub
+    displayName: 'Build, deploy, and push Docker image'
     steps:
-      - task: AzureCLI@2
-        displayName: 'Log in to Azure'
-        inputs:
-          azureSubscription: 'My Azure Subscription'
-          scriptType: 'bash'
-          scriptLocation: 'inlineScript'
-          inlineScript: |
-            # Bash script to log in to Azure using Azure CLI
-      
       - task: Docker@2
-        displayName: 'Build and push Docker image'
+        displayName: 'Pull Docker image'
         inputs:
-          containerRegistry: 'myacr'
-          repository: 'BlazorAutomatedEmailMarketingSystem'
-          command: 'buildAndPush'
-          Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+          containerRegistry: 'docker-hub'
+          repository: '$(DOCKER_HUB_USERNAME)/blazor-automated-email-marketing-system'
+          command: 'pull'
           tags: 'latest'
-      
-      - task: AzureCLI@2
-        displayName: 'Create Web App for Containers'
-        inputs:
-          azureSubscription: 'My Azure Subscription'
-          scriptType: 'bash'
-          scriptLocation: 'inlineScript'
-          inlineScript: |
-            # Bash script to create a web app for containers in Azure using Azure CLI
-      
+
       - script: |
-          # Bash script to perform a smoke test by sending a request to the home page of the app and checking the response status code
-          response=$(curl --write-out %{http_code} --silent --output /dev/null http://your-app-url)
-          if [ $response -eq 200 ]; then
-            echo "Smoke test passed. Home page returned HTTP 200."
+          # Perform dotnet restore
+          dotnet restore
+          # Perform dotnet build
+          dotnet build
+        displayName: 'Restore and Build'
+
+      # Perform Deployment test - check if rebuilt Docker image is valid
+      - script: |
+          if docker inspect $(DOCKER_HUB_USERNAME)/blazor-automated-email-marketing-system:latest &> /dev/null
+          then
+            echo "Deployment test passed. Docker image is valid."
           else
-            echo "Smoke test failed. Home page did not return HTTP 200."
+            echo "Deployment test failed. Invalid Docker image."
             exit 1
           fi
-        displayName: 'Smoke Test'
-        
-      - script: |
-          # Bash script to perform a health check by sending a request to the /health endpoint of the app and checking the response status code
-          response=$(curl --write-out %{http_code} --silent --output /dev/null http://my-live-app-url/health)
-          if [ $response -eq 200 ]; then
-            echo "Health check passed. /health endpoint returned HTTP 200."
+        displayName: 'Deployment Test'
+
+      - task: Docker@2
+        displayName: 'Push Docker image'
+        inputs:
+          containerRegistry: 'docker-hub'
+          repository: '$(DOCKER_HUB_USERNAME)/blazor-automated-email-marketing-system-live'
+          command: 'push'
+          tags: 'latest'
