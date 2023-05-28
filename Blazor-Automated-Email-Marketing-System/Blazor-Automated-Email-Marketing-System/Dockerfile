@@ -3,13 +3,13 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /app
 
 # Copy the .csproj file to the current working directory
-COPY Blazor-Automated-Email-Marketing-System/*.csproj ./
+COPY ./Blazor-Automated-Email-Marketing-System/*.csproj ./
 
 # Restore the NuGet packages
 RUN dotnet restore
 
 # Copy the rest of the source code to the current working directory
-COPY Blazor-Automated-Email-Marketing-System/ ./
+COPY ./Blazor-Automated-Email-Marketing-System/ ./
 
 # Build the application and output the binaries to /app/build
 RUN dotnet build -c Release -o /app/build
