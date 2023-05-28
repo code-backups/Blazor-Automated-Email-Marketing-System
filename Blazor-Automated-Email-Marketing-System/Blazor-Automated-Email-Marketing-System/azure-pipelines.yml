@@ -15,39 +15,36 @@ jobs:
 
   - job: LoginAndPullNewImage
     displayName: 'Check for new Docker image'
-    pool:
-      vmImage: 'ubuntu-latest'
     steps:
       - task: PowerShell@2
         displayName: 'Check Dockerhub for new image'
         inputs:
           targetType: 'inline'
           script: |
-            $DockerHubRepo = "$(DOCKER_HUB_USERNAME)/blazor-automated-email-marketing-system"
+            $DOCKER_HUB_REPO = "$(DOCKER_HUB_USERNAME)/blazor-automated-email-marketing-system"
             docker login -u $(DOCKER_HUB_USERNAME) -p $(DOCKER_HUB_PASSWORD)
-            docker pull $DockerHubRepo
-            # TODO check if pulled image ends with :v1.0.0 if not, echo a warning, logout of docker and exit the pipeline
+            docker pull $DOCKER_HUB_REPO
+            # TODO: Check if pulled image ends with :v1.0.0 if not, echo a warning, logout of docker, and exit the pipeline
+            pulledImageTag=$(docker inspect --format='{{index .RepoTags 0}}' $DOCKER_HUB_REPO)
+            # Check if the tag ends with "v1.0.0"
+            if [[ $pulledImageTag != *:v1.0.0 ]]; then
+              echo "Warning: The pulled image does not have the expected tag 'v1.0.0'"
+              docker logout
+              exit 1
+            fi
 
   - job: ConvertAndRebuildImage
     displayName: 'Convert Image and Rebuild'
-    dependsOn: LoginAndPullNewImage
-    pool:
-      vmImage: 'ubuntu-latest'
     steps:
       - script: |
-          - script: |
-              # Build a completely new Docker image from the pulled Docker image
-              docker build -t $(DOCKER_HUB_USERNAME)/blazor-automated-email-marketing-system-new:live .
+          # Build a completely new Docker image from the pulled Docker image
+          docker build -t $(DOCKER_HUB_USERNAME)/blazor-automated-email-marketing-system-new:live .
         displayName: 'Convert and Rebuild'
 
   - job: TestImage
     displayName: 'Test Docker Image'
-    dependsOn: ConvertAndRebuildImage
-    pool:
-      vmImage: 'ubuntu-latest'
     steps:
       - script: |
-          - script: |
           # Check if the new Docker image is a valid Docker image - simple Deployment test
           if docker inspect $(DOCKER_HUB_USERNAME)/blazor-automated-email-marketing-system:latest &> /dev/null; then
             echo "Docker image test passed. Image is valid."
@@ -60,9 +57,6 @@ jobs:
 
   - job: PushImage
     displayName: 'Push Docker Image'
-    dependsOn: TestImage
-    pool:
-      vmImage: 'ubuntu-latest'
     steps:
       - task: Docker@2
         displayName: 'Push Docker Image'
@@ -74,9 +68,6 @@ jobs:
 
   - job: Logout
     displayName: 'Logout from Docker'
-    dependsOn: PushImage
-    pool:
-      vmImage: 'ubuntu-latest'
     steps:
       - task: Docker@2
         displayName: 'Logout from Docker Hub'
