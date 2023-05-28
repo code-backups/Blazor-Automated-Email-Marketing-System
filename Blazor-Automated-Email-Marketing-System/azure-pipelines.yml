@@ -31,7 +31,7 @@ jobs:
             # Log out from Docker Hub
             docker logout
             # Check if a new image is found
-            if (-not $(LatestImageTag)) {
+            if (-not $LatestImageTag) {
               Write-Host "No new Docker image found."
               exit 1
             }
@@ -82,6 +82,4 @@ jobs:
         # Bash script to perform a health check by sending a request to the /health endpoint of the app and checking the response status code
         response=$(curl --write-out %{http_code} --silent --output /dev/null http://my-live-app-url/health)
         if [ $response -eq 200 ]; then
-          echo "Health check passed. /health endpoint returned HTTP 200."
-        else
-          echo "Health check failed. /health
+          echo "Health check passed. /health endpoint returned HTTP 200
