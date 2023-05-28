@@ -159,7 +159,7 @@ jobs:
       # Build and push Docker image in the production environment
       - name: Build and push Docker image
         env:
-          VERSION: ${{ vars.VERSION }}
+           VERSION: ${{ secrets.VERSION }}
         run: |
            docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/blazor-automated-email-marketing-system:${{ VERSION }} -f ./Blazor-Automated-Email-Marketing-System/Dockerfile ./Blazor-Automated-Email-Marketing-System
            docker push ${{ secrets.DOCKER_HUB_USERNAME }}/blazor-automated-email-marketing-system:${{ VERSION }}
