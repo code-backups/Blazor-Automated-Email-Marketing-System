@@ -30,6 +30,7 @@ jobs:
 
   - job: ConvertAndRebuildImage
     displayName: 'Convert Image and Rebuild'
+    dependsOn: LoginAndPullNewImage
     pool:
       vmImage: 'ubuntu-latest'
     steps:
@@ -41,6 +42,7 @@ jobs:
 
   - job: TestImage
     displayName: 'Test Docker Image'
+    dependsOn: ConvertAndRebuildImage
     pool:
       vmImage: 'ubuntu-latest'
     steps:
@@ -58,6 +60,7 @@ jobs:
 
   - job: PushImage
     displayName: 'Push Docker Image'
+    dependsOn: TestImage
     pool:
       vmImage: 'ubuntu-latest'
     steps:
@@ -71,6 +74,7 @@ jobs:
 
   - job: Logout
     displayName: 'Logout from Docker'
+    dependsOn: PushImage
     pool:
       vmImage: 'ubuntu-latest'
     steps:
