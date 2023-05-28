@@ -24,7 +24,7 @@ jobs:
           script: |
             # Set Docker repository
             $DockerHubRepo = "$(DOCKER_HUB_USERNAME)/blazor-automated-email-marketing-system"
-            # Log in to Dockerhub
+            # Log in to Dockerhub using service connection
             docker login -u $(DOCKER_HUB_USERNAME) -p $(DOCKER_HUB_PASSWORD)
             # Retrieve the latest Docker image
             docker pull $DockerHubRepo
