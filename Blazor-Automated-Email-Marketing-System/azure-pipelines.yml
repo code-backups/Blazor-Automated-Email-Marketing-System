@@ -13,9 +13,10 @@ schedules:
 
 variables:
   - group: 'docker-hub-credentials'
+  - name: DOCKER_HUB_USERNAME
+    value: 404bot
 
 jobs:
-  # Job 1: Check for new Docker image
   - job: CheckForNewDockerImage
     displayName: 'Check for new Docker image'
     pool:
@@ -26,29 +27,22 @@ jobs:
         inputs:
           targetType: 'inline'
           script: |
-            # PowerShell script to check for a new image in Dockerhub
-            
             # Set Docker credentials and repository
-            $DockerHubUsername = "$(dockerHubUsername)"
-            $DockerHubPassword = "$(dockerHubPassword)"
-            $DockerHubRepo = "$($DockerHubUsername)/blazor-automated-email-marketing-system"
-            
-            # Log in to Docker Hub.
-            docker login -u $DockerHubUsername -p $DockerHubPassword
-            
-            # Pull the latest Docker image
+            $DockerHubLogin = "$(DOCKER_HUB_LOGIN)"
+            $DockerHubRepo = "$(DOCKER_HUB_USERNAME)/blazor-automated-email-marketing-system"
+            # Log in to Docker Hub
+            docker login -u ($DockerHubLogin -split ":")[0] -p ($DockerHubLogin -split ":")[1]
+            # Retrieve the latest Docker image
             $LatestImageTag = docker pull $DockerHubRepo | Select-String -Pattern 'Status: Downloaded newer image for' -Quiet
-            
-            # Log out from Docker Hub.
+            # Log out from Docker Hub
             docker logout
-            
-            # Check if a new image is found.
+            # Check if a new image is found
             if (-not $LatestImageTag) {
               Write-Host "No new Docker image found."
               exit 1
             }
 
-  # Job 2: Deploy the new Docker image to production.
+  # Job 2: Deploy the new Docker image to production
   - job: DeployToWebApp
     displayName: 'Deploy to Web App'
     steps:
@@ -59,7 +53,7 @@ jobs:
           scriptType: 'bash'
           scriptLocation: 'inlineScript'
           inlineScript: |
-            # Bash script to log in to Azure using Azure CLI.
+            # Bash script to log in to Azure using Azure CLI
       
       - task: Docker@2
         displayName: 'Build and push Docker image'
@@ -77,10 +71,10 @@ jobs:
           scriptType: 'bash'
           scriptLocation: 'inlineScript'
           inlineScript: |
-            # Bash script to create a web app for containers in Azure using Azure CLI.
+            # Bash script to create a web app for containers in Azure using Azure CLI
       
       - script: |
-          # Bash script to perform a smoke test by sending a request to the home page of the app and checking the response status code.
+          # Bash script to perform a smoke test by sending a request to the home page of the app and checking the response status code
           response=$(curl --write-out %{http_code} --silent --output /dev/null http://your-app-url)
           if [ $response -eq 200 ]; then
             echo "Smoke test passed. Home page returned HTTP 200."
@@ -91,7 +85,7 @@ jobs:
         displayName: 'Smoke Test'
         
       - script: |
-          # Bash script to perform a health check by sending a request to the /health endpoint of the app and checking the response status code.
+          # Bash script to perform a health check by sending a request to the /health endpoint of the app and checking the response status code
           response=$(curl --write-out %{http_code} --silent --output /dev/null http://my-live-app-url/health)
           if [ $response -eq 200 ]; then
             echo "Health check passed. /health endpoint returned HTTP 200."
