@@ -12,9 +12,8 @@ schedules:
     always: true
 
 jobs:
-
-  - job: LoginAndPullNewImage
-    displayName: 'Check for new Docker image'
+  - job: Deployment
+    displayName: 'Deployment Pipeline'
     steps:
       - task: PowerShell@2
         displayName: 'Check Dockerhub for new image'
@@ -33,17 +32,11 @@ jobs:
               exit 1
             fi
 
-  - job: ConvertAndRebuildImage
-    displayName: 'Convert Image and Rebuild'
-    steps:
       - script: |
           # Build a completely new Docker image from the pulled Docker image
           docker build -t $(DOCKER_HUB_USERNAME)/blazor-automated-email-marketing-system-new:live .
         displayName: 'Convert and Rebuild'
 
-  - job: TestImage
-    displayName: 'Test Docker Image'
-    steps:
       - script: |
           # Check if the new Docker image is a valid Docker image - simple Deployment test
           if docker inspect $(DOCKER_HUB_USERNAME)/blazor-automated-email-marketing-system:latest &> /dev/null; then
@@ -55,9 +48,6 @@ jobs:
           fi
         displayName: 'Docker Image Test'
 
-  - job: PushImage
-    displayName: 'Push Docker Image'
-    steps:
       - task: Docker@2
         displayName: 'Push Docker Image'
         inputs:
@@ -66,9 +56,6 @@ jobs:
           repository: '$(DOCKER_HUB_REPO)'
           tags: 'live'
 
-  - job: Logout
-    displayName: 'Logout from Docker'
-    steps:
       - task: Docker@2
         displayName: 'Logout from Docker Hub'
         inputs:
