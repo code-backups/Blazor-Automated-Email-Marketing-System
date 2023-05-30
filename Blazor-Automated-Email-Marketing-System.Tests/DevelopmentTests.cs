@@ -1,7 +1,5 @@
 using Blazor_Automated_Email_Marketing_System.Models;
 using NUnit.Framework;
-using Xunit;
-using Assert = Xunit.Assert;
 
 namespace Blazor_Automated_Email_Marketing_System.Tests
 {
@@ -12,7 +10,8 @@ namespace Blazor_Automated_Email_Marketing_System.Tests
         private int SelectedSubscriberId { get; set; }
         private EmailMessage? _emailMessageTemplate;
 
-        [Fact, Test, Category("Development")]
+        [Test]
+        [Category("Development")]
         public void UnitTest()
         {
             // Arrange - Set up mock data
@@ -23,8 +22,11 @@ namespace Blazor_Automated_Email_Marketing_System.Tests
 
             var emailMessages = new List<EmailMessage>
             {
-                new EmailMessage { Subject = "{{FirstName}} Don't Miss Out on Our Exclusive Sale!",
-                    Body = "Hi {{FirstName}} {{LastName}}, We wanted to let you know about our exclusive sale for our valued subscribers. Get huge reductions off all purchases with the code 123456. Our latest collection includes Glass Hammers, Sky Hooks and Blinker Fluid. Order now to take advantage of this limited-time offer. Kind regards, The {{CompanyName}} Team" }
+                new EmailMessage
+                {
+                    Subject = "{{FirstName}} Don't Miss Out on Our Exclusive Sale!",
+                    Body = "Hi {{FirstName}} {{LastName}}, We wanted to let you know about our exclusive sale for our valued subscribers. Get huge reductions off all purchases with the code 123456. Our latest collection includes Glass Hammers, Sky Hooks and Blinker Fluid. Order now to take advantage of this limited-time offer. Kind regards, The {{CompanyName}} Team"
+                }
             };
 
             _subscribers = subscribers;
@@ -51,10 +53,9 @@ namespace Blazor_Automated_Email_Marketing_System.Tests
 
             // Assert - Compare expected and actual results
             Assert.NotNull(_emailMessageTemplate);
-            Assert.Equal("John Don't Miss Out on Our Exclusive Sale!", _emailMessageTemplate.Subject);
-            Assert.Contains("Hi John Doe,", _emailMessageTemplate.Body);
-
-            // Assert.Contains("xxx@example.com", _emailMessageTemplate.Body);     // fail
+            Assert.AreEqual("John Don't Miss Out on Our Exclusive Sale!", _emailMessageTemplate.Subject);
+            Assert.That(_emailMessageTemplate.Body, Does.Contain("Hi John Doe,"));
+            // Assert.That(_emailMessageTemplate.Body, Does.Contain("no-one@no-domain.com")); // fail
         }
     }
 }

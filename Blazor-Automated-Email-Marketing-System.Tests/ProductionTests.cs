@@ -20,7 +20,7 @@ namespace Blazor_Automated_Email_Marketing_System.Tests
         [Test, Category("Production")]
         public void SmokeTest()
         {
-            _driver.Navigate().GoToUrl("https://localhost:7160/");
+            _driver.Navigate().GoToUrl("http://localhost:5143/");
 
             Task.Delay(TimeSpan.FromSeconds(5)).Wait();
 
