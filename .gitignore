@@ -1,8 +1,11 @@
-﻿.vs/
-Blazor-Automated-Email-Marketing-System/bin/
-Blazor-Automated-Email-Marketing-System/obj/
-Blazor-Automated-Email-Marketing-System/Migrations/
-Blazor-Automated-Email-Marketing-System/Data/database.db
-Blazor-Automated-Email-Marketing-System/Database/
 Blazor-Automated-Email-Marketing-System.Tests/bin/
 Blazor-Automated-Email-Marketing-System.Tests/obj/
+Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System/.vs/
+Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System/Migrations/
+Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System/obj/
+Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System/bin/
+Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System/azure-pipelines.yml
+Blazor-Automated-Email-Marketing-System/.vs/ 
+Blazor-Automated-Email-Marketing-System/obj/ 
+Blazor-Automated-Email-Marketing-System/bin/
+Blazor-Automated-Email-Marketing-System/scratch.txt
