@@ -4,7 +4,7 @@
 on:
   push:
     branches:
-      - CI-Tests
+      - CI-tests
       #- main
 
 # Environment variables are accessible to all jobs
