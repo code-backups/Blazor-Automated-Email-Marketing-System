@@ -16,6 +16,7 @@ jobs:
     displayName: 'Deployment Pipeline'
     steps:
       - task: PowerShell@2
+  
         displayName: 'Check Dockerhub for new image'
         inputs:
           targetType: 'inline'

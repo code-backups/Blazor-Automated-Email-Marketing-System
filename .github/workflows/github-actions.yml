@@ -1,0 +1,162 @@
+name: CI/CD Workflow
+
+# This workflow triggers with  every push to the CI-Dev-Staging-Tests branch
+on:
+  push:
+    branches:
+      - CI-tests
+      #- main
+
+# Environment variables are accessible to all jobs
+env:
+  MSBUILDDIAGNOSTIC: true # DEBUG: Show detailed MSBuild output
+
+jobs:
+  # First job is to lint the C# code in the development environment using StyleCop
+  lint-csharp-development:
+    # This job runs on an Ubuntu runner hosted by GitHub
+    runs-on: ubuntu-latest
+
+    # set environment
+    environment:
+      name: Development
+
+    steps:
+      # Clear the NuGet cache to ensure we're using the latest packages
+      - name: Clear NuGet cache
+        run: dotnet nuget locals all --clear
+
+      # Check out the code from the repository
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      # Set up the .NET environment
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '7.0.x'
+
+      # Install the project dependencies
+      - name: Install dependencies
+        run: dotnet restore ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj
+
+      # Lint the code using .NET Analysers
+      - name: Lint with .NET Analysers
+        run: dotnet build ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj --no-restore -c Release -p:TreatWarningsAsErrors=false
+
+  # Second job is to run XUnit unit tests in the development environment
+  test-development:
+    # This job runs on an Ubuntu runner hosted by GitHub
+    runs-on: ubuntu-latest
+    # This job needs the lint-csharp-development job to complete successfully before it can run
+    needs: lint-csharp-development # executes correctly in GiutHub Actions
+
+    steps:
+      # Check out the code from the repository
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      # Set up the .NET environment
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '7.0.x'
+
+      # Install the project dependencies
+      - name: Install dependencies
+        run: dotnet restore ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj
+
+      # Run the unit tests
+      - name: Run unit tests
+        run: dotnet test ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj --no-restore --verbosity normal --logger:"console;verbosity=detailed"
+
+  # Third job is to run integration tests in the staging environment
+  test-staging:
+      # This job runs on an Ubuntu runner hosted by GitHub
+      runs-on: ubuntu-latest
+      # This job needs the test-development job to complete successfully before it can run
+      needs: test-development # github actions fails to execute test-development, local cmd dotnet test succeeds
+      # if: ${{ always() }} # always execute test-staging
+
+      # set environment for retrieving secrets
+      environment:
+        name: Staging
+
+      steps:
+        # Check out the code from the repository
+        - name: Check out repository
+          uses: actions/checkout@v2
+
+        # Set up the .NET environment
+        - name: Setup .NET
+          uses: actions/setup-dotnet@v1
+          with:
+            dotnet-version: '7.0.x'
+
+        # Install Chromium browser in the runner
+        #- name: Install Chromium
+        #  run: sudo apt-get install chromium-browser
+
+        # Set up Selenium for integration tests
+        #- name: Setup Selenium
+        #  uses: webdriverio/setup-selenium@v1
+
+        # Set up ChromeDriver for integration tests
+        #- name: Setup ChromeDriver
+        #  uses: nanasess/setup-chromedriver@master
+
+        # Install the project dependencies for the test project
+        - name: Install test project dependencies
+          run: dotnet restore ./Blazor-Automated-Email-Marketing-System.Tests/Blazor-Automated-Email-Marketing-System.Tests.csproj
+
+
+        # Restore nuget packages for the main project
+        - name: Restore main project nuget packages
+          run: dotnet restore ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj
+
+        # Run the integration tests
+        - name: Run integration tests
+          run: dotnet test ./Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System/Blazor-Automated-Email-Marketing-System.csproj --filter Category=Integration --no-restore --verbosity normal
+          #env:
+          #  SELENIUM_REMOTE_URL: http://localhost:4444/wd/hub
+          #  SELENIUM_BROWSER: chrome
+
+  # Fourth job is to build and push the Docker image
+  build-and-push:
+    # This job runs on an Ubuntu runner hosted by GitHub
+    runs-on: ubuntu-latest
+    # This job needs the test-staging job to complete successfully before it can run
+    needs: test-staging # github actions fails to execute test-staging, local cmd dotnet test succeeds
+    # if: ${{ always() }} # always execute build-and-push
+
+    # set environment for retrieving secrets
+    environment:
+      name: Production
+
+    steps:
+      # Check out the code from the repository
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      # Print secrets to logs for debugging purposes
+      - name: Print secrets
+        run: |
+            echo "DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}"
+            echo "DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}"
+      # Print environment name for debugging purposes
+      - name: Print Branch Name
+        run: |
+            echo "Branch: ${{ github.ref }}"
+      # Log in to Docker Hub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+
+      # Build and push Docker image in the production environment
+      - name: Build and push Docker image
+        run: |
+          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/blazor-automated-email-marketing-system:v1.0.0 -f ./Blazor-Automated-Email-Marketing-System/Dockerfile ./Blazor-Automated-Email-Marketing-System
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/blazor-automated-email-marketing-system:v1.0.0
